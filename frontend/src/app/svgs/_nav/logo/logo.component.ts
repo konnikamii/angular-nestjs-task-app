@@ -6,7 +6,7 @@ import { Component, input, signal } from '@angular/core';
   templateUrl: './logo.component.html', 
 })
 export class LogoComponent {  
-  class = input('')
+  className = input('')
   isLight = input(true) 
 
   isHovered = signal(false); 

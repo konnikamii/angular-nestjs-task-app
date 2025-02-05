@@ -3,10 +3,12 @@ import { RouterLink } from '@angular/router';
 import { LogoComponent } from "../../svgs/_nav/logo/logo.component";
 import { ThemeService } from '../../services/theme.service';
 import { DOCUMENT } from '@angular/common';
+import { ThemeToggleLightComponent } from "../../svgs/theme-toggle-light/theme-toggle-light.component";
+import { ThemeToggleDarkComponent } from "../../svgs/theme-toggle-dark/theme-toggle-dark.component";
 
 @Component({
   selector: 'app-home-navbar',
-  imports: [RouterLink,  LogoComponent],
+  imports: [RouterLink, LogoComponent, ThemeToggleLightComponent, ThemeToggleDarkComponent],
   templateUrl: './home-navbar.component.html',
   styleUrl: './home-navbar.component.scss'
 })
