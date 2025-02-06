@@ -1,13 +1,312 @@
-<nav class="navbar">
-  <div class="container">
-    <a class="navbar-brand" routerLink="/app">MyApp</a>
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/app/dashboard">Dashboard</a>
-      </li>  
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/">Logout</a>
-      </li>  
-    </ul>
+@if (dims.plus1024) {
+ 
+  <!-- Side Navbar -->
+  <div [class]="'z-[30] fixed h-screen flex flex-col bg-gradient-to-b transition-all duration-300 text-black bg-white/80 dark:text-white dark:from-gray-800 dark:to-gray-800 ' +  (leftNavOpen() ? '2xl:w-[250px] w-[200px]' : '2xl:w-[80px] w-[60px]')">
+
+    <!-- Logo -->
+    <div class="flex w-full min-h-[90px] items-center border-r-2 border-b-2 relative border-gray-300 dark:border-gray-600">
+      <a routerLink="/app" [class]="'flex w-full justify-start overflow-hidden gap-2 relative transition-all duration-100 2xl:pl-4 ' + (leftNavOpen() ? 'pl-2' : 'pl-1')">
+        <app-logo className="shrink-0 transition-all duration-300 active:scale-90 2xl:size-12 size-11" [isLight]="isLight()" />  
+        <div [class]="'absolute top-1/2 transition-all duration-100 font-medium 2xl:text-3xl 2xl:left-[90px] 2xl:translate-y-[-50%] text-2xl left-[72px] translate-y-[-50%] ' + (leftNavOpen() ? '' : 'translate-x-20')" style="font-family: 'Pacifico'">
+          Taskify
+        </div>
+      </a>
+      <div
+        class="group absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 py-[6px] px-[3px] rounded-xl border transition-all duration-300 active:scale-95 cursor-pointer bg-black hover:bg-white border-gray-700 dark:bg-white dark:hover:bg-black dark:border-gray-300 "
+        (click)="toggleLeftNav()"
+        > 
+        <svg 
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          [class]="'2xl:size-4 size-3 transition-all duration-300 stroke-white group-hover:stroke-black dark:stroke-black dark:group-hover:stroke-white ' + (leftNavOpen() ? 'translate-x-[3px] translate-y-[1px]' : 'rotate-180 translate-x-[-2px]')"
+        >   
+        <path d="M15 27L3 15L15 3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      </div>
+    </div>
+
+    <!-- Links -->
+    <div [class]="'flex flex-col flex-1 pt-4 border-r-2 transition-all duration-300 border-gray-300 dark:border-gray-600 ' +
+      (dims.plus768h ? ' gap-3 ' : dims.plus500h ? ' gap-1 ' : ' gap-0 ') + (leftNavOpen() ? ' 2xl:pl-12 2xl:pr-11 px-8 ' : ' 2xl:px-3 px-2 ')">
+      <!-- Navigation links MAIN -->
+      <div [class]="'flex flex-col ' + (dims.plus768h ? ' gap-3 pt-4 ' : dims.plus500h ? ' gap-1 ' : ' gap-0 ')">
+        @if (dims.plus500h){
+          <div [class]="'font-bold transition-all duration-300 text-gray-600 dark:text-gray-300 2xl:text-sm text-xs ' + (leftNavOpen() ? '' : ' 2xl:pl-[9px] pl-[6px] ')">
+            MAIN
+          </div>
+        } 
+        @for (link of navbarMainLinks; track link.to) {
+          <a [routerLink]="link.to" [class]="'group group-w-full flex items-center gap-3 rounded-md transition-all duration-300 active:scale-95 overflow-hidden ' + (dims.plus768h ? ' py-3 ' : ' py-2 ') + (leftNavOpen() ? ' px-4 ' : ' 2xl:px-[15px] 2xl:hover:w-fit px-[11px] hover:w-fit ') + (matchRoute(link.to) ? 'bg-blue-500 dark:bg-blue-400' : 'hover:bg-blue-500 dark:hover:bg-blue-400')">
+
+            @if (link.name === 'Dashboard'){ 
+              <svg 
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              [class]="'shrink-0 fill-none transition-all duration-100 2xl:size-6 size-5 group-hover:stroke-white dark:group-hover:stroke-black ' + (matchRoute(link.to) ? 'stroke-white dark:stroke-black' : 'stroke-black dark:stroke-white')" 
+            >    
+              <rect x="1.75" y="1.75" width="28.5" height="24.5" rx="4.25" fill="none" :stroke-width="1.5"/>
+              <path d="M17.2398 27H14.7602C14.656 27 14.5544 27.0326 14.4696 27.0931L10.2696 30.0931C9.8738 30.3759 10.0738 31 10.5602 31H21.4398C21.9262 31 22.1262 30.3759 21.7304 30.0931L17.5304 27.0931C17.4456 27.0326 17.344 27 17.2398 27Z" fill="none" stroke-width="1.5"/>
+              <circle cx="6.5" cy="18.5" r="2.5" fill="none"/>
+              <circle cx="12" cy="22" r="2" fill="none"/>
+              <circle cx="11.5" cy="15.5" r="1.5" fill="none"/>
+              <path d="M11.5 5.5L11.5 5.8L11.5 5.5ZM18.5 12L18.5 12.3L18.5 12ZM26 4.5L22.9083 6.06255L25.8074 7.95874L26 4.5ZM5 12C5.2555 12.1572 5.25549 12.1572 5.2555 12.1572C5.25552 12.1572 5.25555 12.1571 5.25559 12.1571C5.25569 12.1569 5.25584 12.1567 5.25605 12.1563C5.25648 12.1556 5.25715 12.1545 5.25806 12.1531C5.25987 12.1501 5.26264 12.1457 5.26634 12.1397C5.27374 12.1278 5.28487 12.11 5.29957 12.0866C5.32895 12.0398 5.37258 11.9709 5.42911 11.8829C5.54219 11.707 5.70679 11.4553 5.9122 11.153C6.32334 10.5479 6.89644 9.74257 7.54588 8.9385C8.19673 8.13269 8.91719 7.33701 9.62247 6.74548C10.3416 6.14236 10.9888 5.8 11.5 5.8L11.5 5.2C10.7612 5.2 9.97092 5.67014 9.2369 6.28577C8.48906 6.91299 7.74077 7.74231 7.07912 8.5615C6.41606 9.38243 5.83291 10.2021 5.41593 10.8158C5.20727 11.1228 5.03984 11.3789 4.9244 11.5585C4.86668 11.6483 4.82193 11.719 4.7915 11.7674C4.77629 11.7916 4.76465 11.8103 4.75676 11.823C4.75282 11.8293 4.74981 11.8342 4.74776 11.8375C4.74673 11.8392 4.74595 11.8404 4.74541 11.8413C4.74513 11.8417 4.74492 11.8421 4.74477 11.8423C4.7447 11.8425 4.74463 11.8426 4.74459 11.8426C4.74454 11.8427 4.7445 11.8428 5 12ZM11.5 5.8C11.9696 5.8 12.4463 6.11652 12.9713 6.71371C13.4897 7.30335 13.9934 8.09312 14.5354 8.91513C15.0693 9.72486 15.6381 10.5622 16.2697 11.1961C16.901 11.8298 17.6341 12.3 18.5 12.3L18.5 11.7C17.8659 11.7 17.2776 11.3577 16.6947 10.7726C16.112 10.1878 15.5738 9.40014 15.0363 8.58487C14.5069 7.78188 13.975 6.94665 13.4219 6.31754C12.8754 5.69598 12.2449 5.2 11.5 5.2L11.5 5.8ZM18.5 12.3C19.0659 12.3 19.6446 12.0829 20.204 11.7495C20.7659 11.4147 21.3297 10.9497 21.8719 10.4233C22.9563 9.37054 23.983 8.04329 24.7669 6.93294L24.2768 6.58688C23.5016 7.6849 22.4996 8.97769 21.454 9.99285C20.9312 10.5004 20.4047 10.9315 19.8969 11.2341C19.3866 11.5381 18.9163 11.7 18.5 11.7L18.5 12.3Z" fill="black"/>
+              <path d="M17 16.5H27M17 19.5H24.5M17 22.5H23" fill="none" stroke-linecap="round"/>
+            </svg>
+            } @else if (link.name === 'Tasks') {
+              <svg 
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                [class]="'shrink-0 fill-none transition-all duration-100 2xl:size-6 size-5 group-hover:stroke-white dark:group-hover:stroke-black ' + (matchRoute(link.to) ? 'stroke-white dark:stroke-black' : 'stroke-black dark:stroke-white')" 
+              >   
+                <path d="M3.09091 6H9M12 6H28.9999M12 12H28.9999M9 12H3.09091M3.09091 18H9M12 18H28.9999M28.9999 24H12M9 24H3.09091" stroke-width="2" />
+              </svg>
+            }
+          
+            <div [class]="'relative transition-all duration-300 2xl:text-base text-sm ' + (leftNavOpen() ? 'opacity-100' : 'slide-right-and-back opacity-0 group-hover:opacity-100')"> 
+              <span [class]="'relative underline-animation ' + (matchRoute(link.to) ? 'text-white dark:text-black' : 'group-hover:text-white dark:group-hover:text-black')">
+                {{ link.name }}
+              </span>
+            </div>
+          </a>
+          } 
+      </div>
+
+      <!-- Navigation links TOOLS -->
+      <div [class]="'flex flex-col ' + (dims.plus768h ? 'gap-3 pt-8' : dims.plus500h ? 'gap-1 pt-2' : 'gap-0')">
+        @if (dims.plus500h){
+          <div [class]="'font-bold transition-all duration-300 2xl:text-sm text-xs text-gray-600 dark:text-gray-300 ' + (leftNavOpen() ? '' : ' 2xl:pl-[9px] pl-[6px] ')">
+            TOOLS
+          </div>
+        } 
+        @for (link of navbarToolLinks; track link.to) {
+          <a [routerLink]="link.to" [class]="'group group-w-full flex items-center gap-3 rounded-md transition-all duration-300 active:scale-95 overflow-hidden ' + (dims.plus768h ? ' py-3 ' : ' py-2 ') + (leftNavOpen() ? ' px-4 ' : ' 2xl:px-[15px] 2xl:hover:w-fit px-[11px] hover:w-fit dark:font-medium ') + (matchRoute(link.to) ? 'bg-blue-500 dark:bg-blue-400' : 'hover:bg-blue-500 dark:hover:bg-blue-400')">
+             
+          @if (link.name === 'Settings') {
+            <svg 
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              [class]="'shrink-0 fill-none transition-all duration-100 2xl:size-6 size-5 group-hover:stroke-white dark:group-hover:stroke-black ' + (matchRoute(link.to) ? 'stroke-white dark:stroke-black' : 'stroke-black dark:stroke-white')" 
+            >   
+            <g clipPath="url(#clip0_626_4834)">
+              <circle cx="16" cy="16" r="5.15" stroke-width="1.7"/>
+              <path d="M8.90815 4.23213L9.16057 4.453C10.2557 5.41127 11.9751 4.9164 12.3932 3.52255L12.5724 2.9253C12.8262 2.07934 13.6048 1.5 14.4881 1.5H17.5119C18.3952 1.5 19.1738 2.07934 19.4276 2.9253L19.6068 3.52255C20.0249 4.9164 21.7443 5.41127 22.8394 4.453L23.0918 4.23213C23.8843 3.53877 25.0785 3.57854 25.8231 4.32307L27.6769 6.17693C28.4215 6.92146 28.4612 8.11574 27.7679 8.90815L27.547 9.16057C26.5887 10.2557 27.0836 11.9751 28.4775 12.3932L29.0747 12.5724C29.9207 12.8262 30.5 13.6048 30.5 14.4881V17.5119C30.5 18.3952 29.9207 19.1738 29.0747 19.4276L28.4775 19.6068C27.0836 20.0249 26.5887 21.7443 27.547 22.8394L27.7679 23.0918C28.4612 23.8843 28.4215 25.0785 27.6769 25.8231L25.8231 27.6769C25.0785 28.4215 23.8843 28.4612 23.0919 27.7679L22.8394 27.547C21.7443 26.5887 20.0249 27.0836 19.6068 28.4775L19.4276 29.0747C19.1738 29.9207 18.3952 30.5 17.5119 30.5H14.4881C13.6048 30.5 12.8262 29.9207 12.5724 29.0747L12.3932 28.4775C11.9751 27.0836 10.2557 26.5887 9.16058 27.547L8.90815 27.7679C8.11574 28.4612 6.92146 28.4215 6.17693 27.6769L4.32307 25.8231C3.57854 25.0785 3.53877 23.8843 4.23213 23.0919L4.453 22.8394C5.41127 21.7443 4.9164 20.0249 3.52255 19.6068L2.9253 19.4276C2.07934 19.1738 1.5 18.3952 1.5 17.5119V14.4881C1.5 13.6048 2.07934 12.8262 2.9253 12.5724L3.52255 12.3932C4.9164 11.9751 5.41127 10.2557 4.453 9.16058L4.23213 8.90815C3.53877 8.11574 3.57854 6.92146 4.32307 6.17693L6.17693 4.32307C6.92146 3.57854 8.11574 3.53877 8.90815 4.23213Z" stroke-width="1.7"/>
+            </g>
+            <defs>
+              <clipPath id="clip0_626_4834">
+                <rect width="32" height="32" fill="white" transform="matrix(-1 0 0 1 32 0)"/>
+              </clipPath>
+            </defs>
+            </svg>
+          }
+          
+            <div [class]="'relative transition-all duration-300 2xl:text-base text-sm ' + (leftNavOpen() ? 'opacity-100' : 'slide-right-and-back opacity-0 group-hover:opacity-100')">
+            <span [class]="'relative underline-animation ' +  (matchRoute(link.to) ? 'text-white dark:text-black' : 'group-hover:text-white dark:group-hover:text-black')">
+              {{ link.name }} 
+            </span>
+            </div>
+          </a>
+          } 
+      </div>
+    </div>
+
+    <!-- Logout -->
+    <div [class]="'flex flex-col justify-center border-r-2 border-t-2 transition-all duration-300 border-gray-300 dark:border-gray-600 ' + (dims.plus768h ? ' min-h-[75px] ' : ' min-h-[60px] ') + (leftNavOpen() ? ' 2xl:px-12 px-8 ' : ' 2xl:px-3 px-2 ')">
+      <div [class]="'group group-w-full flex items-center gap-3 rounded-md transition-all duration-300 active:scale-95 overflow-hidden cursor-pointer hover:bg-blue-500 dark:font-medium dark:hover:bg-blue-400 ' + (dims.plus768h ? ' py-3 ' : ' py-2 ') + (leftNavOpen() ? ' px-4 ' : ' 2xl:px-[15px] px-[11px] hover:w-fit ')" 
+      (click)="handleLogout()"> 
+        <svg 
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="shrink-0 fill-none transition-all duration-100 2xl:size-6 size-5 group-hover:stroke-white stroke-black dark:group-hover:stroke-black dark:stroke-white"
+        >   
+        <path d="M11 10V5C11 3.34315 12.3431 2 14 2H25C26.6569 2 28 3.34315 28 5V27C28 28.6569 26.6569 30 25 30H14C12.3431 30 11 28.6569 11 27V22M17 16H2M2 16L5 13M2 16L5 19" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+        <div [class]="'relative transition-all duration-300 2xl:text-base text-sm ' + (leftNavOpen() ? 'opacity-100' : 'slide-right-and-back opacity-0 group-hover:opacity-100')">
+          <span class="relative underline-animation text-black group-hover:text-white dark:text-white dark:group-hover:text-black">
+            Logout
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
-</nav>
+  
+  <!-- Top Navbar -->
+  <div [class]="'fixed flex items-center justify-between w-full min-h-[90px] max-h-[90px] shadow-lg border-b-2 bg-gradient-to-r transition-all duration-300 text-black bg-white/80 border-gray-300 shadow-gray-300/30 dark:text-white dark:from-gray-800 dark:to-gray-800 dark:border-gray-600 dark:shadow-gray-600/30 z-[20] backdrop-blur-md ' + (leftNavOpen() ? '2xl:ml-[250px] ml-[200px]' : '2xl:ml-[80px] ml-[60px]')"
+  [style.width]="leftNavOpen() ? dims.plus1440 ? 'calc(100% - 250px)'  :  'calc(100% - 200px)' : dims.plus1440 ? 'calc(100% - 80px)' : 'calc(100% - 60px)'">
+    > 
+    <div class=" ml-12 2xl:w-3/4 2xl:text-xl w-2/3 text-lg ">
+      <div class="font-bold">
+        {{ currentRouteInfo().welcome_message }} 
+      </div>
+      <div class=" 2xl:text-base text-sm mt-2 ">
+        {{ currentRouteInfo().tooltip }} 
+      </div>
+    </div>
+
+    <div class=" flex justify-end items-center gap-6 pr-4 2xl:w-1/4 w-1/3 ">
+      <div
+        class="w-12 h-6 px-[6px] py-[3px] bg-gray-400 shadow-inner shadow-gray-700 border border-gray-400 rounded-full cursor-pointer relative"
+        (click)="toggleTheme()"> 
+          <app-theme-toggle-light
+            className="absolute left-1 size-4 bg-white fill-yellow-500 rounded-full transition-all duration-300 opacity-100 rotate-[-360deg] translate-x-0 dark:translate-x-6 dark:opacity-0 dark:rotate-0" />
+          <app-theme-toggle-dark
+            className="absolute left-1 size-4 bg-white fill-black rounded-full transition-all duration-300 opacity-0 rotate-[-360deg] translate-x-0 dark:translate-x-6 dark:opacity-100 dark:rotate-0" />  
+      </div>
+      <a class="group flex items-center gap-2" routerLink="/app/user">
+        @if (userData){
+        <div class="flex flex-col">
+          <div class=" 2xl:text-base text-xs text-gray-600 dark:text-white ">
+            {{ userData.username }}
+          </div>
+          <div class="2xl:text-xs text-[10px] text-gray-400 dark:text-gray-300 ">
+            Plan: free
+          </div>
+        </div>
+        }  
+        <svg 
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          [class]="'rounded-2xl active:scale-95 transition-all duration-200 2xl:size-12 size-10 ' + (matchRoute('/app/user') ? 'stroke-white fill-white bg-black dark:stroke-black dark:fill-black dark:bg-white' : 'fill-black stroke-black group-hover:fill-white group-hover:stroke-white group-hover:bg-black dark:fill-white dark:stroke-white dark:group-hover:fill-black dark:group-hover:stroke-black dark:group-hover:bg-white')"
+        >   
+          <circle cx="16" cy="12" r="4" stroke="none" />
+          <circle cx="16" cy="16" r="12" stroke-width="1.5" fill="none" />
+          <path d="M13 18.5C10.5 19 7.5 22 7.5 24.5C7.5 24.5 10.5 28 16 28C21.5 28 24.5 24.5 24.5 24.5C24.5 22 21.5 19 19 18.5C17 20 15 20 13 18.5Z" stroke="none" />
+        </svg>
+      </a>
+    </div>
+  </div>
+  
+  <!-- Main content -->
+  <div [class]="'absolute w-full h-fit min-h-screen pt-[90px] bg-gradient-to-b transition-all duration-300 text-black from-gray-100 to-gray-200 dark:text-white dark:from-gray-900 dark:to-gray-900 ' + (leftNavOpen() ? '2xl:ml-[250px] ml-[200px]' : '2xl:ml-[80px] ml-[60px]')"
+  [style.width]="leftNavOpen() ? dims.plus1440 ? 'calc(100% - 250px)' : 'calc(100% - 200px)' : dims.plus1440 ? 'calc(100% - 80px)' : 'calc(100% - 60px)' ">
+    <div class="absolute w-full overflow-hidden pointer-events-none" style="height: calc(100% - 90px)">
+      <div class="w-full h-full relative overflow-hidden">
+        <div class="scaling-up-side absolute top-0 left-0 translate-x-[-75%] h-full bg-[#c83bf3] roundeds-full filter blur-[30px] opacity-60 w-[3px] mix-blend-darken dark:opacity-20 dark:w-[7px] dark:mix-blend-lighten"></div>
+        <div class="scaling-up-side absolute top-0 right-0 translate-x-[75%] h-full bg-[#c83bf3] roundeds-full filter blur-[30px] opacity-60 w-[3px] mix-blend-darken dark:opacity-20 dark:w-[7px] dark:mix-blend-lighten"></div>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+} 
+@else {
+  
+    <!-- Top Navbar -->
+    <div [class]="'fixed top-0 left-0 z-[20] w-screen min-h-[65px] border-b-2 shadow-sm backdrop-blur-sm transition-all duration-300 overflow-hidden select-none border-gray-300 dark:border-gray-700 dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-800 dark:text-white ' + (dropdownOpen() ? 'max-h-screen' : 'max-h-[65px] delay-[100ms]')" >
+      <div class="flex flex-col items-center gap-2 pb-4">
+        <div class="flex justify-between items-center w-full px-4 h-[65px]">
+          <a class="flex-1" routerLink="/app"> 
+            <app-logo className="shrink-0 transition-all duration-100 active:scale-90 2xl:size-12 size-11" [isLight]="isLight()" /> 
+          </a>
+          <div class="flex-0 font-semibold 2xs:text-xl text-lg"> 
+            {{ currentRouteInfo().name }} 
+          </div>
+          <div class="flex flex-1 justify-end items-center gap-2">
+            <a routerLink="/app/user" (click)="dropdownOpen.set(false)"> 
+              <svg 
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                [class]="'rounded-lg transition-all duration-300 2xs:size-7 size-6 ' + (matchRoute('/app/user') ? 'stroke-white fill-white bg-black dark:stroke-black dark:fill-black dark:bg-white':'stroke-black fill-black dark:stroke-white dark:fill-white')" 
+              >   
+                <circle cx="16" cy="12" r="4" stroke="none" />
+                <circle cx="16" cy="16" r="12" stroke-width="1.5" fill="none" />
+                <path d="M13 18.5C10.5 19 7.5 22 7.5 24.5C7.5 24.5 10.5 28 16 28C21.5 28 24.5 24.5 24.5 24.5C24.5 22 21.5 19 19 18.5C17 20 15 20 13 18.5Z" stroke="none" />
+              </svg>
+            </a>
+            <button (click)="dropdownOpen.set(!dropdownOpen())"> 
+              <svg 
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                [class]="'transition-all duration-200 delay-0 2xs:size-8 size-7 stroke-black dark:stroke-white ' + (dropdownOpen() ? ' sandwich-open scale-[.8] ' : ' delay-[100ms] ')"
+              >   
+                <path class="sandwich-path top" d="M29 9L3 9" stroke-width="2.5" stroke-linecap="round"/>
+                <path class="sandwich-path middle" d="M29 17L3 17" stroke-width="2.5" stroke-linecap="round"/>
+                <path class="sandwich-path bottom" d="M29 25L3 25" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Navigation links TOOLS -->
+        @for (link of navbarTopLinks; track link.to; let idx = $index) {
+          <a [routerLink]="link.to" [class]="'transition-all duration-300 ' +( dropdownOpen() ? delayClasses[idx] : 'delay-[100ms] opacity-0 ' + (idx % 2 === 0 ? '-' : '') + 'translate-x-10') +  (matchRoute(link.to ) ? ' underline-animation-active ' : ' ')" (click)="dropdownOpen.set(false)">
+          <div class="relative transition-all duration-300">
+            <span [class]="'relative underline-animation 2xs:text-base text-sm ' + (matchRoute(link.to ) ? 'text-black dark:text-white':' group-hover:text-white dark:group-hover:')">
+              {{ link.name }}
+            </span>
+          </div>
+        </a>
+      }
+
+        <!-- Logout button -->
+        <div [class]="'transition-all duration-300 2xs:text-base text-sm ' + (dropdownOpen() ? 'delay-[200ms]' : 'delay-[100ms] opacity-0 -translate-x-10')" 
+        (click)="handleLogout()">
+          Logout
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main content -->
+    <div class=" absolute w-full h-fit min-h-screen pt-[65px] bg-gradient-to-b transition-all duration-300 text-black from-gray-100 to-gray-200 dark:text-white dark:from-gray-900 dark:to-gray-900 ">
+      <div class="absolute w-full h-full overflow-hidden pointer-events-none" style="height: calc(100% - 65px)">
+        <div class="w-full h-full relative overflow-hidden">
+          <div class="scaling-up-side absolute top-0 left-0 translate-x-[-75%] h-full bg-[#c83bf3] roundeds-full filter blur-[30px] opacity-60 w-[4px] mix-blend-darken dark:opacity-20 dark:w-[6px] dark:mix-blend-lighten ">
+          </div>
+          <div class="scaling-up-side absolute top-0 right-0 translate-x-[75%] h-full bg-[#c83bf3] roundeds-full filter blur-[30px] opacity-60 w-[4px] mix-blend-darken dark:opacity-20 dark:w-[6px] dark:mix-blend-lighten ">
+          </div>
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+
+    
+    <!-- Navbar Bottom -->
+    <div class="fixed bottom-5 w-screen z-[10]">
+      <div 
+        class=" absolute bottom-0 left-1/2 -translate-x-1/2 w-fit flex py-1 px-2 gap-1 items-center rounded-full shadow-inner border-2 transition-all duration-300 border-gray-400 shadow-[#474747] bg-gray-200 dark:border-gray-400 dark:shadow-[#2c2c2c] dark:bg-gradient-to-br dark:from-gray-700 dark:to-gray-900 ">
+        @for (link of navbarMainLinks; track link.to) {
+        <div [class]="'overflow-hidden transition-all duration-300 ease-in-out rounded-full shadow-md ' + (matchRoute(link.to) ? 'max-w-[130px] shadow-slate-800 bg-black dark:shadow-gray-500 dark:bg-blue-400':'max-w-[46px] bg-transparent shadow-transparent')">
+          <a [routerLink]="link.to" [class]="'flex items-center text-sm font-bold gap-2 px-2 py-[6px] overflow-hidden ' + (matchRoute(link.to) ? 'text-white dark:text-black':'text-black dark:text-white')" 
+          (click)="dropdownOpen.set(false)">
+            <div [class]="'p-1 border rounded-full transition-all duration-500 ease-in-out ' + (matchRoute(link.to) ? 'scale-[1.15] shadow-sm shadow-gray-700 border-white dark:shadow-gray-600 dark:border-black':'scale-100 border-black dark:border-white')"> 
+            @if (link.name === 'Dashboard'){ 
+              <svg 
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              [class]="'shrink-0 size-5 fill-none ' + (matchRoute(link.to) ? 'stroke-white dark:stroke-black' : 'stroke-black dark:stroke-white')" 
+            >    
+              <rect x="1.75" y="1.75" width="28.5" height="24.5" rx="4.25" fill="none" :stroke-width="1.5"/>
+              <path d="M17.2398 27H14.7602C14.656 27 14.5544 27.0326 14.4696 27.0931L10.2696 30.0931C9.8738 30.3759 10.0738 31 10.5602 31H21.4398C21.9262 31 22.1262 30.3759 21.7304 30.0931L17.5304 27.0931C17.4456 27.0326 17.344 27 17.2398 27Z" fill="none" stroke-width="1.5"/>
+              <circle cx="6.5" cy="18.5" r="2.5" fill="none"/>
+              <circle cx="12" cy="22" r="2" fill="none"/>
+              <circle cx="11.5" cy="15.5" r="1.5" fill="none"/>
+              <path d="M11.5 5.5L11.5 5.8L11.5 5.5ZM18.5 12L18.5 12.3L18.5 12ZM26 4.5L22.9083 6.06255L25.8074 7.95874L26 4.5ZM5 12C5.2555 12.1572 5.25549 12.1572 5.2555 12.1572C5.25552 12.1572 5.25555 12.1571 5.25559 12.1571C5.25569 12.1569 5.25584 12.1567 5.25605 12.1563C5.25648 12.1556 5.25715 12.1545 5.25806 12.1531C5.25987 12.1501 5.26264 12.1457 5.26634 12.1397C5.27374 12.1278 5.28487 12.11 5.29957 12.0866C5.32895 12.0398 5.37258 11.9709 5.42911 11.8829C5.54219 11.707 5.70679 11.4553 5.9122 11.153C6.32334 10.5479 6.89644 9.74257 7.54588 8.9385C8.19673 8.13269 8.91719 7.33701 9.62247 6.74548C10.3416 6.14236 10.9888 5.8 11.5 5.8L11.5 5.2C10.7612 5.2 9.97092 5.67014 9.2369 6.28577C8.48906 6.91299 7.74077 7.74231 7.07912 8.5615C6.41606 9.38243 5.83291 10.2021 5.41593 10.8158C5.20727 11.1228 5.03984 11.3789 4.9244 11.5585C4.86668 11.6483 4.82193 11.719 4.7915 11.7674C4.77629 11.7916 4.76465 11.8103 4.75676 11.823C4.75282 11.8293 4.74981 11.8342 4.74776 11.8375C4.74673 11.8392 4.74595 11.8404 4.74541 11.8413C4.74513 11.8417 4.74492 11.8421 4.74477 11.8423C4.7447 11.8425 4.74463 11.8426 4.74459 11.8426C4.74454 11.8427 4.7445 11.8428 5 12ZM11.5 5.8C11.9696 5.8 12.4463 6.11652 12.9713 6.71371C13.4897 7.30335 13.9934 8.09312 14.5354 8.91513C15.0693 9.72486 15.6381 10.5622 16.2697 11.1961C16.901 11.8298 17.6341 12.3 18.5 12.3L18.5 11.7C17.8659 11.7 17.2776 11.3577 16.6947 10.7726C16.112 10.1878 15.5738 9.40014 15.0363 8.58487C14.5069 7.78188 13.975 6.94665 13.4219 6.31754C12.8754 5.69598 12.2449 5.2 11.5 5.2L11.5 5.8ZM18.5 12.3C19.0659 12.3 19.6446 12.0829 20.204 11.7495C20.7659 11.4147 21.3297 10.9497 21.8719 10.4233C22.9563 9.37054 23.983 8.04329 24.7669 6.93294L24.2768 6.58688C23.5016 7.6849 22.4996 8.97769 21.454 9.99285C20.9312 10.5004 20.4047 10.9315 19.8969 11.2341C19.3866 11.5381 18.9163 11.7 18.5 11.7L18.5 12.3Z" fill="black"/>
+              <path d="M17 16.5H27M17 19.5H24.5M17 22.5H23" fill="none" stroke-linecap="round"/>
+            </svg>
+            } @else if (link.name === 'Tasks') {
+              <svg 
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                [class]="'shrink-0 size-5 fill-none  ' + (matchRoute(link.to) ? 'stroke-white dark:stroke-black' : 'stroke-black dark:stroke-white')" 
+              >   
+                <path d="M3.09091 6H9M12 6H28.9999M12 12H28.9999M9 12H3.09091M3.09091 18H9M12 18H28.9999M28.9999 24H12M9 24H3.09091" stroke-width="2" />
+              </svg>
+            }
+            </div>
+            <div [class]="'overflow-hidden transition-all duration-150 ease-in-out ' + (matchRoute(link.to) ? 'translate-x-0 delay-150':'translate-x-20')">
+              <div>{{ link.name }}</div>
+            </div>
+          </a>
+        </div>
+      }
+      </div>
+    </div>
+}

@@ -1,44 +1,37 @@
-import { Component, computed, inject, signal } from '@angular/core'; 
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core'; 
 import { Router, RouterLink } from '@angular/router';
 import { SideLinesComponent } from "../../components/side-lines/side-lines.component";
-import { HttpClient } from '@angular/common/http';
-import { ThemeService } from '../../services/theme.service';
-import { BubblesBackgroundComponent } from "../../components/bubbles-background/bubbles-background.component";
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { ThemeService } from '../../services/theme.service'; 
 import { BACKEND_URL, btnClassPrimaryDarkBlue } from '../../utils_other/defaults';
-import { rippleAnimation } from '../../utils_other/helperFunctions';
-import { LoginErrors, LoginValues } from '../../utils_other/types';
+import { rippleAnimation, toastMessage } from '../../utils_other/helperFunctions';
+import { LoginErrors, LoginResponse, LoginValues } from '../../utils_other/types';
 
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
-import {MatSelectModule} from '@angular/material/select';
-
+import {provideNativeDateAdapter} from '@angular/material/core';
+import { CustomInputComponent } from "../../components/custom-input/custom-input.component";
+import { catchError } from 'rxjs';
+ 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, SideLinesComponent, BubblesBackgroundComponent, FormsModule, MatFormFieldModule, MatInputModule,MatSelectModule],
+  imports: [RouterLink, SideLinesComponent,   CustomInputComponent],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent { 
-
-  
-  protected readonly value = signal('');
-
-  protected onInput(event: Event) {
-    this.value.set((event.target as HTMLInputElement).value);
-  }
-
+export class LoginComponent {    
+  themeService = inject(ThemeService);
+  router = inject(Router);
+  http = inject(HttpClient); 
 
   theme = signal<'light' | 'dark'>('light');
   isLight = signal(true);
-  values = signal<LoginValues>({ username: '', password: '' });
+
+  values = signal<LoginValues>({ username: null, password: null });
   errors =  signal<LoginErrors>({ username: null, password: null, global: null })
   loadingState = signal(false);
   isDisabled = computed(() =>  this.errors().username || this.errors().password || this.errors().global || this.loadingState() );
   btnClassPrimaryDarkBlue = btnClassPrimaryDarkBlue
-  themeService = inject(ThemeService);
-  router = inject(Router);
-  http = inject(HttpClient); 
 
   ngOnInit() { 
     this.themeService.theme$.subscribe(newTheme => {
@@ -47,8 +40,8 @@ export class LoginComponent {
     });
   }
 
-  handleEnterSubmit(e: KeyboardEvent) {
-    if (e.key === 'Enter') {
+  handleEnterSubmit(event: KeyboardEvent) { 
+    if (event.key === 'Enter' && !this.isDisabled()) {
       this.handleSubmit();
     }
   }
@@ -58,8 +51,6 @@ export class LoginComponent {
   }
 
   handleSubmit() {
-    this.loadingState.set(true);
-    
     if (!this.values().username) {
       this.errors.update(prev => ({...prev, username: "Please provide your username!"})) ;
     }
@@ -68,37 +59,36 @@ export class LoginComponent {
     }
 
     if (this.values().username && this.values().password && !this.errors().username && !this.errors().password) {
+      this.loadingState.set(true);
+      
       const formData = new FormData();
       formData.append('username', this.values().username ?? '');
       formData.append('password', this.values().password ?? '');
-      this.http.post(`${BACKEND_URL}api/login/`, formData).subscribe(
-        (response: any) => {
-          // Handle successful login
-          localStorage.setItem('access_token', response.access_token);
-          this.loadingState.set(false);
-          this.router.navigate(['/app']);
-        },
-        (error: any) => {
-          // Handle login error
-          const res = error.error;
-          if (res) {
-            const newErr = res.detail;
-            if (newErr.includes('assword')) { 
-              this.errors.update(prev => ({...prev, password: newErr})) ; 
-            } else if (newErr.includes('sername')) { 
-              this.errors.update(prev => ({...prev, username: newErr})) ;
-            } else { 
-              this.errors.update(prev => ({...prev, global: newErr})) ;
-            }
+
+      this.http.post<LoginResponse>(`${BACKEND_URL}api/login/`, formData).pipe(
+        catchError((error: HttpErrorResponse) => { 
+          const res = error.error; 
+          if (res) { 
+            this.errors.update(prev => ({...prev, global: res.message})) ; 
+            toastMessage(res.message, 'error', 2000 );
           } else {
+            toastMessage('An unexpected error occurred.', 'error', 2000 );
             this.errors.update(prev => ({...prev, global: 'An unexpected error occurred.'})) ; 
           }
-          this.loadingState.set(false);
+          setTimeout(() => { this.loadingState.set(false); }, 500); 
+          throw error
+      })).subscribe((res: LoginResponse|null) => {
+        if (res) {  
+          localStorage.setItem('access_token', res.access_token); 
+          this.values.update(prev => ({ ...prev, username: null, password: null }));
+          toastMessage('Success', 'success', 1000 ); 
+          setTimeout(() => { toastMessage('Redirecting you to the application...', 'loading', 1000 ); }, 500);
+          setTimeout(() => { this.loadingState.set(false); }, 1000);
+          setTimeout(() => { this.router.navigate(['/app']); }, 1000); 
         }
-      );
-    } else {
-      this.loadingState.set(false);
-    }
+      } 
+      ); 
+    } 
   }
 
   handleInputChangeUsername(event: Event) {
@@ -115,6 +105,12 @@ export class LoginComponent {
     this.values.update(prev => ({ ...prev, password: value ? value : null }));
     this.errors.update(prev => ({ ...prev, password: null }));
     this.errors.update(prev => ({ ...prev, global: null }));
+  }
+  clearUsername() {
+    this.values.update(prev => ({ ...prev, username: null }));
+  }
+  clearPassword() {
+    this.values.update(prev => ({ ...prev, password: null }));
   }
 
 }

@@ -1,0 +1,13 @@
+@if (showToast()){
+<div [class]="'fixed top-[10px] left-1/2 -translate-x-1/2 px-12 py-3 z-[1000] rounded-lg flex gap-2 ' + ( type() === 'success' ? ' bg-green-500 ': type() === 'error' ?  ' bg-red-500 ' : ' bg-gray-500 ')">
+
+  <div class="relative"> 
+    @if (type() === 'loading'){ 
+      <div
+      [class]="'loader loader-dark dark:loader-light absolute top-0 left-[-32px] size-6 opacity-100'" 
+      ></div>
+    }
+    {{ message() }}
+  </div>
+ </div>
+} 

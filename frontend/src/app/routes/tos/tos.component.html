@@ -1,0 +1,44 @@
+<div
+  class="flex flex-col items-center justify-center gap-10 py-[90px] px-2 w-full h-fit min-h-screen transition-colors duration-300 overflow-y-auto relative bg-gray-100 dark:bg-gray-800"
+>
+  <app-side-lines class="pointer-events-none absolute h-full w-full overflow-hidden"></app-side-lines>
+
+  <div
+    class="flex flex-col px-10 py-4 rounded-xl border shadow-lg transition-all duration-300 backdrop-blur-sm relative overflow-hidden border-gray-400 bg-gray-200/40 shadow-gray-200 hover:shadow-gray-300 dark:border-gray-600 dark:bg-white/65 dark:shadow-gray-500/40 md:w-[430px] w-auto text-black"
+  >
+    <div
+      class="grow-left absolute top-0 left-0 translate-x-[-45%] -translate-y-[95%] w-[200%] aspect-square bg-[#0064d2] rounded-full mix-blend-multiply filter blur-3xl opacity-40 dark:opacity-60"
+    ></div>
+    <div
+      class="scaling-up absolute bottom-0 left-0 translate-y-[90%] w-[400%] aspect-square bg-[#f5af02] rounded-full mix-blend-multiply filter blur-3xl opacity-40 dark:opacity-60"
+    ></div>
+    <div class="w-full flex flex-col items-center py-6 font-bold text-3xl">
+      ToS page
+    </div>
+    <div class="flex flex-col gap-3 mb-6 text-center">
+      Add your ToS here.
+    </div>
+    <div class="text-sm text-gray-900 text-center mb-1">
+      Back to 
+      <a routerLink="/">
+        <span class="text-blue-700 hover:underline underline-offset-2 cursor-pointer">
+          Home Page!
+        </span>
+      </a>
+    </div>
+    <div class="text-sm text-gray-900 text-center mb-4">
+      Or 
+      <a routerLink="/login">
+        <span class="text-blue-700 hover:underline underline-offset-2 cursor-pointer">
+          Log In!
+        </span>
+      </a> 
+      / 
+      <a routerLink="/register">
+        <span class="text-blue-700 hover:underline underline-offset-2 cursor-pointer">
+          Sign Up!
+        </span>
+      </a>
+    </div>
+  </div>
+</div>

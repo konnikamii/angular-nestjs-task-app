@@ -29,11 +29,16 @@ export interface LoginGet {
   username: string;
   password: string;
 }
+export interface LoginResponse {
+  access_token: string,
+  token_type: string
+}
 export interface RegisterGet {
   username: string;
   email: string;
   password: string;
 }
+
 export interface ChangePasswordGet {
   new_password: string;
   old_password: string;
@@ -47,10 +52,7 @@ export interface Token {
 export interface User {
   id: number;
   username: string;
-  email: string;
-  first_name: string;
-  last_name: string;
-  role: "USER" | "ADMIN";
+  email: string;  
   updated_at: string;
   created_at: string;
 }

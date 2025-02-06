@@ -1,5 +1,138 @@
- 
-<div>Hello from register</div>
-<h1 class="text-3xl font-bold underline bg-blue-200">
-  Hello world!
-</h1>
+<div
+  class="flex flex-col items-center justify-center gap-10 py-[90px] px-2 w-full h-fit min-h-screen transition-colors duration-300 overflow-y-auto relative bg-gray-900/20 dark:bg-gray-800/60"
+>
+  <app-side-lines class="pointer-events-none absolute h-full w-full overflow-hidden"></app-side-lines>
+  
+  <div
+    class="flex flex-col px-10 py-4 rounded-xl border shadow-lg transition-all duration-300 backdrop-blur-lg relative overflow-hidden border-gray-400 bg-gray-200/60 shadow-gray-500 hover:shadow-gray-400 dark:border-gray-600 dark:bg-white/45 dark:shadow-gray-500/40 xs:w-[430px] w-auto"
+  > 
+    <div class="w-full flex flex-col items-center py-6 font-bold text-3xl text-black">
+      Register 
+    </div>
+    <div class="flex flex-col gap-3 mb-6">
+      <div class="relative size-full">
+        <div class="font-semibold mb-2 2xl:text-lg text-base text-black" style="letter-spacing: 0.01em;">
+          Username
+        </div>
+        <div class="relative size-full">
+          <app-custom-input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Username"
+            [value]="values().username"
+            [maxLength]="255"
+            prefixIcon="user"
+            [errorMessage]="errors().username ?? errors().global"
+            (inputEvent)="handleInputChangeUsername($event)"
+            (keyboardEvent)="handleEnterSubmit($event)"
+            (clearInputEvent)="clearUsername()"
+          ></app-custom-input>
+        </div> 
+      </div> 
+      <div class="relative size-full">
+        <div class="font-semibold mb-2 2xl:text-lg text-base text-black" style="letter-spacing: 0.01em;">
+          Email
+        </div>
+        <div class="relative size-full">
+          <app-custom-input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Email"
+            [value]="values().email"
+            [maxLength]="255"
+            prefixIcon="email"
+            [errorMessage]="errors().email ?? errors().global"
+            (inputEvent)="handleInputChangeEmail($event)"
+            (keyboardEvent)="handleEnterSubmit($event)"
+            (clearInputEvent)="clearEmail()"
+          ></app-custom-input>
+        </div> 
+      </div>  
+      <div class="relative size-full">
+        <div class="font-semibold mb-2 2xl:text-lg text-base text-black">
+          Password
+        </div>
+        <div class="relative size-full">
+          <app-custom-input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            [value]="values().password"
+            [maxLength]="255" 
+            prefixIcon="password"
+            [errorMessage]="errors().password ?? errors().global"
+            (inputEvent)="handleInputChangePassword($event)"
+            (keyboardEvent)="handleEnterSubmit($event)"
+            (clearInputEvent)="clearPassword()"
+          ></app-custom-input>
+        </div>
+      </div> 
+      <div class="relative size-full">
+        <div class="font-semibold mb-2 2xl:text-lg text-base text-black">
+          Confirm Password
+        </div>
+        <div class="relative size-full">
+          <app-custom-input
+            type="password"
+            id="confirm_password"
+            name="confirm_password"
+            placeholder="Confirm Password"
+            [value]="values().confirm_password"
+            [maxLength]="255"
+            prefixIcon="password"
+            [errorMessage]="errors().confirm_password ?? errors().global"
+            (inputEvent)="handleInputChangeConfirmPassword($event)"
+            (keyboardEvent)="handleEnterSubmit($event)"
+            (clearInputEvent)="clearConfirmPassword()"
+          ></app-custom-input>
+        </div>
+      </div> 
+    </div>
+
+    <button
+      [class]="'py-[6px] w-full flex justify-center mb-1 mt-2 dark:shadow-gray-500 dark:border-gray-600 cursor-pointer ' + btnClassPrimaryDarkBlue" 
+      [disabled]="isDisabled()"
+      (click)="handleClickSubmit($event)"
+    >
+      <div class="relative text-white">
+        <div
+          [class]="'loader loader-dark dark:loader-light absolute top-0 left-[-32px] size-6 ' + (loadingState() ? 'opacity-100' : 'opacity-0')" 
+        ></div>
+        Create Account
+      </div>
+    </button>
+
+    <div class="text-sm text-gray-900 text-center mb-6 mt-1">
+      Already have an account? -----
+      <a routerLink="/login" draggable="false">
+        <span class="text-blue-700 hover:underline underline-offset-2 cursor-pointer">
+          Log In!
+        </span>
+      </a>
+    </div>
+    
+    <div class="text-xs text-gray-600 text-justify text-pretty mb-3">
+      By creating an account, you agree to Taskify&apos;s 
+      <a
+        href="/tos"
+        class="text-black hover:underline cursor-pointer"
+        draggable="false"
+      >
+        Terms of Service
+      </a> 
+      and confirm that you have read our 
+      <a
+        href="/privacy"
+        class="text-black hover:underline cursor-pointer"
+        draggable="false"
+      >
+        Privacy Policy
+      </a>
+      .
+    </div>
+
+  </div>
+</div>

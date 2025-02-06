@@ -34,3 +34,16 @@ export const btnClassPrimaryDarkBlue = ` text-nowrap text-center px-3 py-1 borde
                 active:border-gray-200 active:shadow-blue-500 
                 disabled:active:border-gray-500 disabled:shadow-transparent disabled:opacity-60 disabled:cursor-not-allowed
                 transition-all duration-300 relative overflow-hidden `;
+
+export const defaultDims = {
+  isLandscape: false,
+  plus500h: false,
+  plus768h: false,
+  plus1080h: false,
+  plus375: false,
+  plus425: false,
+  plus550: false,
+  plus768: false,
+  plus1024: false,
+  plus1440: false,
+};

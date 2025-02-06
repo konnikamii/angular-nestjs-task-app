@@ -1,2 +1,114 @@
- 
-<div>Hello from contact</div>
+<div
+  class="flex flex-col items-center justify-center gap-10 py-[90px] px-2 w-full h-fit min-h-screen transition-colors duration-300 overflow-y-auto relative bg-gray-100 dark:bg-gray-800"
+>
+  <app-side-lines class="pointer-events-none absolute h-full w-full overflow-hidden"></app-side-lines>
+
+  <div
+    class="flex flex-col px-10 py-4 rounded-xl border shadow-lg transition-all duration-300 backdrop-blur-sm relative overflow-hidden border-gray-400 bg-gray-200/40 shadow-gray-200 hover:shadow-gray-300 dark:border-gray-600 dark:bg-white/65 dark:shadow-gray-500/40 md:w-[430px] w-auto text-black"
+  >
+    <div
+      class="grow-left absolute top-0 left-0 translate-x-[-45%] -translate-y-[95%] w-[200%] aspect-square bg-[#0064d2] rounded-full mix-blend-multiply filter blur-3xl opacity-40 dark:opacity-60"
+    ></div>
+    <div
+      class="scaling-up absolute bottom-0 left-0 translate-y-[90%] w-[400%] aspect-square bg-[#f5af02] rounded-full mix-blend-multiply filter blur-3xl opacity-40 dark:opacity-60"
+    ></div>
+    <div class="w-full flex flex-col items-center py-6 font-bold text-3xl text-black">
+      Contact Form 
+    </div>
+    <div class="flex flex-col gap-3 mb-6">
+      <div class="relative size-full">
+        <div class="font-semibold mb-2 2xl:text-lg text-base text-black" style="letter-spacing: 0.01em;">
+          Name
+        </div>
+        <div class="relative size-full">
+          <app-custom-input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Name"
+            [value]="values().name"
+            [maxLength]="255"
+            prefixIcon="user"
+            [errorMessage]="errors().name ?? errors().global"
+            (inputEvent)="handleInputChangeName($event)"
+            (keyboardEvent)="handleEnterSubmit($event)"
+            (clearInputEvent)="clearName()"
+          ></app-custom-input>
+        </div> 
+      </div> 
+      <div class="relative size-full">
+        <div class="font-semibold mb-2 2xl:text-lg text-base text-black" style="letter-spacing: 0.01em;">
+          Email
+        </div>
+        <div class="relative size-full">
+          <app-custom-input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Email"
+            [value]="values().email"
+            [maxLength]="255"
+            prefixIcon="email"
+            [errorMessage]="errors().email ?? errors().global"
+            (inputEvent)="handleInputChangeEmail($event)"
+            (keyboardEvent)="handleEnterSubmit($event)"
+            (clearInputEvent)="clearEmail()"
+          ></app-custom-input>
+        </div> 
+      </div>  
+      <div class="relative size-full">
+        <div class="font-semibold mb-2 2xl:text-lg text-base text-black">
+          Subject
+        </div>
+        <div class="relative size-full">
+          <app-custom-input
+            type="text"
+            id="subject"
+            name="subject"
+            placeholder="Subject"
+            [value]="values().subject"
+            [maxLength]="255"  
+            [errorMessage]="errors().subject ?? errors().global"
+            (inputEvent)="handleInputChangeSubject($event)"
+            (keyboardEvent)="handleEnterSubmit($event)"
+            (clearInputEvent)="clearSubject()"
+          ></app-custom-input>
+        </div>
+      </div> 
+      <div class="relative size-full">
+        <div class="font-semibold mb-2 2xl:text-lg text-base text-black">
+          Message
+        </div>
+        <div class="relative size-full">
+          <app-custom-input
+            type="text"
+            id="message"
+            name="message"
+            placeholder="Write your message"
+            [value]="values().message"
+            [maxLength]="1500"
+            [showCharacters]="true" 
+            [errorMessage]="errors().message ?? errors().global"
+            (inputEvent)="handleInputChangeMessage($event)"
+            (keyboardEvent)="handleEnterSubmit($event)"
+            (clearInputEvent)="clearMessage()"
+          ></app-custom-input>
+        </div>
+      </div> 
+    </div>
+
+    <button
+      [class]="'py-[6px] w-full flex justify-center mb-1 mt-2 dark:shadow-gray-500 dark:border-gray-600 cursor-pointer ' + btnClassPrimaryDarkBlue" 
+      [disabled]="isDisabled()"
+      (click)="handleClickSubmit($event)"
+    >
+      <div class="relative text-white">
+        <div
+          [class]="'loader loader-dark dark:loader-light absolute top-0 left-[-32px] size-6 ' + (loadingState() ? 'opacity-100' : 'opacity-0')" 
+        ></div>
+        Send
+      </div>
+    </button>
+  
+  </div>
+</div>

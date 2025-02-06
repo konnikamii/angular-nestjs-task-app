@@ -282,14 +282,12 @@ html {
 
 /* #region Sandwich */
 .sandwich-path {
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
   transform-origin: center;
 }
 .sandwich-open .sandwich-path.top {
   transform: rotate(45deg) translate(1px, 7px);
-}
+} 
 .sandwich-open .sandwich-path.middle {
   opacity: 0;
 }
@@ -797,137 +795,49 @@ html {
 .loader-dark {
   border-right-color: black;
 }
-/* #endregion*/
-
-/* #region AntD */
-.ant-select-selection-placeholder {
-  font-size: 11px;
-}
-.ant-select-selection-item {
-  font-size: 12px;
-}
-.ant-select-selection-item-content {
-  font-size: 12px;
-}
-.ant-select-item-option-content {
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-}
-.ant-select-arrow {
-  transform: translateY(8%) translateX(50%);
-}
-.ant-select-clear {
-  transform: translateX(50%);
-}
-
-.ant-picker .ant-picker-input input::placeholder {
-  font-size: 12px;
-}
-.ant-picker .ant-picker-input input {
-  font-size: 9px;
-}
-.ant-picker-suffix {
-  transform: translateX(25%);
-}
-.ant-picker-clear .anticon-close-circle {
-  transform: translateX(25%);
-}
-
-.ant-input-number-input::placeholder {
-  font-size: 12px;
-}
-
-/* Larger font size for screens wider than 375px */
-@media (min-width: 375px) {
-  .ant-select-selection-placeholder {
-    font-size: 12px;
-  }
-  .ant-select-selection-item {
-    font-size: 14px;
-  }
-  .ant-select-selection-item-content {
-    font-size: 14px;
-  }
-  .ant-select-item-option-content {
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-  }
-
-  .ant-picker .ant-picker-input input::placeholder {
-    font-size: 14px;
-  }
-  .ant-picker .ant-picker-input input {
-    font-size: 13px;
-  }
-
-  .ant-input-number-input::placeholder {
-    font-size: 14px;
-  }
-}
-
-/* Even larger font size for screens wider than 425px */
-@media (min-width: 425px) {
-  .ant-select-selection-placeholder {
-    font-size: 14px;
-  }
-  .ant-select-selection-item {
-    font-size: 16px;
-  }
-  .ant-select-selection-item-content {
-    font-size: 16px;
-  }
-  .ant-select-item-option-content {
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-  }
-
-  .ant-picker .ant-picker-input input::placeholder {
-    font-size: 16px;
-  }
-  .ant-picker .ant-picker-input input {
-    font-size: 14px;
-  }
-
-  .ant-input-number-input::placeholder {
-    font-size: 16px;
-  }
-}
-
-/* Adjust the font size for screens wider than 768px */
-@media (min-width: 768px) {
-  .ant-select-selection-placeholder {
-    font-size: 16px;
-  }
-  .ant-select-arrow {
-    transform: translateX(0%);
-  }
-  .ant-select-clear {
-    transform: translateX(0%);
-  }
-  .ant-picker-suffix {
-    transform: translateX(0%);
-  }
-  .ant-picker-clear .anticon-close-circle {
-    transform: translateX(0%);
-  }
+.loader-mid {
+  border-right-color: rgb(124, 124, 124);
 }
 /* #endregion*/
+  
 
-/* #region In Construction */
-@keyframes moveUpDown {
-  0%,
+@keyframes slideDownFadeIn {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
   100% {
     transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px); /* Adjust the value as needed */
+    opacity: 1;
   }
 }
 
-.hook-and-rope {
-  animation: moveUpDown 10s infinite ease-in-out; /* Adjust the duration as needed */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
-/* #endregion*/
+
+@keyframes slideUpFadeOut {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+}
+.toast-message {
+  animation: slideDownFadeIn 0.5s ease-out forwards;
+}
+
+.toast-message.fade-out {
+  animation: fadeOut 0.6s ease-out forwards;
+}
+.toast-message.slide-out {
+  animation: slideUpFadeOut 0.6s ease-out forwards;
+}

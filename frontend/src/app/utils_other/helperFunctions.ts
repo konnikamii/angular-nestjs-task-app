@@ -192,3 +192,54 @@ export const rippleAnimation = (
     .style("transform", "scale(5)")
     .on("end", () => ripple.remove());
 };
+
+
+// Toast message
+export const toastMessage = (
+  message: string,
+  type: "success" | "error" | "loading",
+  duration?: number,
+) => {
+  // Create toast container
+  const toast = document.createElement("div");
+  toast.className = `fixed top-[10px] left-1/2 -translate-x-1/2 py-2 px-6 z-[1000] rounded-lg flex gap-2 shadow-round shadow-gray-600/80 bg-gray-200 text-black dark:bg-gray-800 dark:text-white border text-sm ${
+    type === "success" ? " border-green-500  " : type === "error" ? " border-red-500  " : " border-gray-500 pl-12 "
+  } toast-message`;
+
+  // Create message container
+  const messageContainer = document.createElement("div");
+  messageContainer.className = "relative";
+  messageContainer.innerHTML = message;
+
+  // Append loader if type is loading
+  if (type === "loading") {
+    const loader = document.createElement("div");
+    loader.className = "loader loader-mid absolute top-0 left-[-32px] size-5 opacity-100";
+    messageContainer.appendChild(loader);
+  }
+
+  // Append message container to toast
+  toast.appendChild(messageContainer);
+
+  // Check for existing toasts and adjust position
+  const existingToasts = document.querySelectorAll('.toast-message');
+  const offset = existingToasts.length * 60; // Adjust the offset as needed
+  toast.style.top = `${10 + offset}px`;
+
+  // Append toast to body
+  // Select the target element (e.g., an element with the ID 'main')
+  const targetElement = document.getElementById('root');
+  if (targetElement) {
+    // Append toast to the target element
+    targetElement.appendChild(toast);
+  } else {
+    console.error("Target element with ID 'main' not found.");
+  }
+  // Remove toast after duration
+  setTimeout(() => {
+    toast.classList.add('slide-out');
+    setTimeout(() => {
+      toast.remove();
+    }, 600);
+  }, duration ?? 3000);
+};

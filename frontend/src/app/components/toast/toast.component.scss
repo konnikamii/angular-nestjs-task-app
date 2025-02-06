@@ -1,0 +1,24 @@
+.toast {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  z-index: 10000;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
+.toast-success {
+  background-color: #4caf50;
+}
+
+.toast-error {
+  background-color: #f44336;
+}
+
+.toast.ng-leave {
+  opacity: 0;
+}
