@@ -124,47 +124,19 @@ export class ContactComponent {
       ); 
     } 
   }
-
-  handleInputChangeName(event: Event) {
+ 
+  changeField(event: Event, type: 'name' | 'email' | 'subject' | 'message') {
     const target = event.target as HTMLInputElement;
-    const value = target.value 
-    this.values.update(prev => ({ ...prev, name: value ? value : null }));
-    this.errors.update(prev => ({ ...prev, name: null }));
-    this.errors.update(prev => ({ ...prev, global: null }));
+    let value = target.value
+    if (type === 'email') {
+      value = value.replace(/\s+/g, ''); // removes whitespaces
+    }  
+    this.values.update(prev => ({ ...prev, [type]: value ? value : null }));
+    this.errors.update(prev => ({ ...prev, [type]: null, global: null })); 
   }
-  handleInputChangeEmail(event: Event) {
-    const target = event.target as HTMLInputElement;
-    const value = target.value.replace(/\s+/g, ''); // removes whitespaces 
-    this.values.update(prev => ({ ...prev, email: value ? value : null }));
-    this.errors.update(prev => ({ ...prev, email: null }));
-    this.errors.update(prev => ({ ...prev, global: null }));
+  clearField(type: 'name' | 'email' | 'subject' | 'message') {
+    this.values.update(prev => ({ ...prev, [type]: null }));
+    this.errors.update(prev => ({ ...prev, [type]: null }));
   }
-  handleInputChangeSubject(event: Event) {
-    const target = event.target as HTMLInputElement;
-    const value = target.value 
-    this.values.update(prev => ({ ...prev, subject: value ? value : null }));
-    this.errors.update(prev => ({ ...prev, subject: null }));
-    this.errors.update(prev => ({ ...prev, global: null }));
-  }
-  handleInputChangeMessage(event: Event) {
-    const target = event.target as HTMLInputElement;
-    const value = target.value 
-    this.values.update(prev => ({ ...prev, message: value ? value : null }));
-    this.errors.update(prev => ({ ...prev, message: null }));
-    this.errors.update(prev => ({ ...prev, global: null }));
-  }
-  clearName() {
-    this.values.update(prev => ({ ...prev, name: null }));
-  }
-  clearEmail() {
-    this.values.update(prev => ({ ...prev, email: null }));
-  }
-  clearSubject() {
-    this.values.update(prev => ({ ...prev, subject: null }));
-  }
-  clearMessage() {
-    this.values.update(prev => ({ ...prev, message: null }));
-  }
-
 
 }

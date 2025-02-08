@@ -1,5 +1,8 @@
 import { Dayjs } from "dayjs";
 
+export type SortByType = "title" | "due_date" | "completed" | "created_at" | "updated_at";
+export type SortTypeType = "asc" | "desc"  
+
 export interface DimensionContextType {
   isLandscape: boolean;
   plus500h: boolean;
@@ -91,12 +94,12 @@ export interface TasksIdUpdate extends TasksIdCreate {
 export interface TasksGet {
   page: number;
   page_size: number;
-  sort_by: "title" | "due_date" | "completed" | "created_at" | "updated_at";
-  sort_type: "asc" | "desc";
+  sort_by: SortByType
+  sort_type: SortTypeType
 }
 export interface TasksIn {
-  total: number;
-  data: Task[];
+  total_tasks: number;
+  tasks: Task[];
 }
 
 // # ---------------------------- Contact Form ----------------------------#
@@ -178,3 +181,18 @@ export interface TaskUpdateErrors {
   due_date: string | null;
   global: string | null;
 }
+
+
+// # ---------------------------- Password Update Form ----------------------------# 
+export interface passwordUpdateValues {
+  old_password: string | null;
+  new_password: string | null;
+  confirm_password: string | null; 
+}
+
+export interface passwordUpdateErrors {
+  old_password: string | null;
+  new_password: string | null;
+  confirm_password: string | null;
+  global: string | null;
+};

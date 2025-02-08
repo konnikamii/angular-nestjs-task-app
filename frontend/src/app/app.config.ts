@@ -7,12 +7,22 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import {
   provideTanStackQuery,
   QueryClient,
+  withDevtools,
 } from '@tanstack/angular-query-experimental'
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { DatePipe } from '@angular/common';
 
 
 export const appConfig: ApplicationConfig = {
-  providers: [
+  providers: [provideNativeDateAdapter(),DatePipe,
     provideHttpClient(
-      withFetch(),), provideTanStackQuery(new QueryClient()),importProvidersFrom([BrowserAnimationsModule]),
+      withFetch(),), provideTanStackQuery(new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 1000 * 60 * 60 * .5, // .5 hour
+            gcTime: 1000 * 60 * 60 * 6, // 6 hours
+          },
+        },
+      }), withDevtools()),importProvidersFrom([BrowserAnimationsModule]),
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)]
 };

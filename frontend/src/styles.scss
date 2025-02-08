@@ -36,11 +36,11 @@
   --circle-size: 80%;
   --blending: hard-light;
 
-  
-  @include mat.form-field-overrides((
-    filled-caret-color: orange,
-    filled-focus-active-indicator-color: blue,
-    filled-container-color: rgb(238, 238, 238),
+   
+  @include mat.datepicker-overrides((
+    calendar-date-selected-state-text-color: rgb(255, 255, 255),
+    calendar-date-selected-state-background-color: rgb(5, 71, 146),
+    calendar-container-background-color: rgb(105, 101, 101),  
   ));
 }
 #root * {

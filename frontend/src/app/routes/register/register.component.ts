@@ -133,48 +133,17 @@ export class RegisterComponent {
       } 
       ); 
     } 
-  }
-
-  handleInputChangeUsername(event: Event) {
+  } 
+  
+  changeField(event: Event, type: 'username' | 'email' | 'password' | 'confirm_password') {
     const target = event.target as HTMLInputElement;
-    const value = target.value.replace(/\s+/g, ''); // removes whitespaces 
-    this.values.update(prev => ({ ...prev, username: value ? value : null }));
-    this.errors.update(prev => ({ ...prev, username: null }));
-    this.errors.update(prev => ({ ...prev, global: null }));
+    const value = target.value.replace(/\s+/g, ''); // removes whitespaces  
+    this.values.update(prev => ({ ...prev, [type]: value ? value : null }));
+    this.errors.update(prev => ({ ...prev, [type]: null, global: null })); 
   }
-  handleInputChangeEmail(event: Event) {
-    const target = event.target as HTMLInputElement;
-    const value = target.value.replace(/\s+/g, ''); // removes whitespaces 
-    this.values.update(prev => ({ ...prev, email: value ? value : null }));
-    this.errors.update(prev => ({ ...prev, email: null }));
-    this.errors.update(prev => ({ ...prev, global: null }));
+  clearField(type: 'username' | 'email' | 'password' | 'confirm_password') {
+    this.values.update(prev => ({ ...prev, [type]: null }));
+    this.errors.update(prev => ({ ...prev, [type]: null }));
   }
-  handleInputChangePassword(event: Event) {
-    const target = event.target as HTMLInputElement;
-    const value = target.value.replace(/\s+/g, ''); // removes whitespaces 
-    this.values.update(prev => ({ ...prev, password: value ? value : null }));
-    this.errors.update(prev => ({ ...prev, password: null }));
-    this.errors.update(prev => ({ ...prev, global: null }));
-  }
-  handleInputChangeConfirmPassword(event: Event) {
-    const target = event.target as HTMLInputElement;
-    const value = target.value.replace(/\s+/g, ''); // removes whitespaces 
-    this.values.update(prev => ({ ...prev, confirm_password: value ? value : null }));
-    this.errors.update(prev => ({ ...prev, confirm_password: null }));
-    this.errors.update(prev => ({ ...prev, global: null }));
-  }
-  clearUsername() {
-    this.values.update(prev => ({ ...prev, username: null }));
-  }
-  clearEmail() {
-    this.values.update(prev => ({ ...prev, email: null }));
-  }
-  clearPassword() {
-    this.values.update(prev => ({ ...prev, password: null }));
-  }
-  clearConfirmPassword() {
-    this.values.update(prev => ({ ...prev, confirm_password: null }));
-  }
-
 
 }

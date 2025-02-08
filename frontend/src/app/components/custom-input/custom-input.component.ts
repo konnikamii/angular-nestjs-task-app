@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, Output, signal } from '@angular/core';
+import { Component,  input, output  } from '@angular/core';
 
 @Component({
   selector: 'app-custom-input',
@@ -17,11 +17,12 @@ export class CustomInputComponent {
   errorMessage = input<string | null>(null); 
   maxLength = input<number|null>(null);
   showCharacters = input(false);
-
-
-  @Output() inputEvent = new EventEmitter<Event>();
-  @Output() keyboardEvent = new EventEmitter<KeyboardEvent>();
-  @Output() clearInputEvent = new EventEmitter<void>(); 
+  isDisabled = input(false);
+  allowClear = input(true);
+ 
+  inputEvent = output<Event>();
+  keyboardEvent = output<KeyboardEvent>();
+  clearInputEvent = output();
   
 
   inputEventEmitter(event: Event) { 

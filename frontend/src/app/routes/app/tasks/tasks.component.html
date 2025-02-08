@@ -1,1 +1,161 @@
-<p>tasks works!</p>
+<div [class]="'loader fixed top-0 right-0 m-[2px] loader-dark dark:loader-light lg:size-6 size-4 ' + (query.isFetching() || loadingState() ? 'opacity-100' : 'opacity-0')"></div>
+
+
+<div class="lg:min-w-[60%] lg:p-12 p-6 text-black dark:text-white">
+  @if (query.isPending()) {
+    <div class="flex justify-center items-center h-[80vh]">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  }
+  @if (query.isError()) { 
+    <div class="flex justify-center items-center h-[80vh]">
+      <div class="text-2xl font-bold">An error occurred while fetching tasks.</div>
+    </div> 
+  }
+  @if (query.data(); as tasks) {  
+    <div class="flex w-full md:flex-row flex-col justify-between items-center mb-4">
+      <div class="text-2xl font-bold">
+        Tasks
+        <span class="text-lg font-medium italic">
+          (Total <span>{{ tasks.total_tasks }}</span>)
+        </span>
+      </div>
+      <div class="flex md:flex-row flex-col gap-2 items-center">
+        <div>Sort by: </div>
+        <app-custom-select
+          containerClassName=" w-[130px] " 
+          [options]="sortByOptions"
+          [selected]="values().sort_by"
+          (selectionChange)="setSortBy($event)">
+        </app-custom-select>
+        <app-custom-select
+          containerClassName=" w-[130px] " 
+          [options]="sortTypeOptions"
+          [selected]="values().sort_type"
+          (selectionChange)="setSortType($event)">
+        </app-custom-select>
+        <button class="rounded-md px-4 py-2 transition-colors duration-300 cursor-pointer bg-blue-400 border-blue-500 hover:bg-blue-500 hover:border-blue-600 dark:bg-blue-700 dark:border-gray-700 dark:hover:bg-blue-800 dark:hover:border-gray-600" 
+        (click)="toggleTasksModal()">
+          Add Task
+        </button>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      @for (task of tasks.tasks; track task.id){
+      <div class="task-card p-4 border rounded-lg shadow-md transition-all duration-300 cursor-pointer bg-white hover:bg-blue-100/70 border-gray-300 dark:bg-gray-700 dark:hover:bg-gray-800 dark:border-gray-600"
+        (click)="navigateToTask(task.id)">
+        <div class="flex justify-between items-center mb-3">
+          <div class="text-xl font-semibold mb-2">{{ task.title }}</div>
+          <div class="cursor-pointer" (click)="deleteTask(task.id)">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              class="w-6 h-6 stroke-red-600 hover:stroke-red-800">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
+        </div>
+        <div class="text-gray-700 dark:text-gray-300 mb-6">{{ task.description }}</div>
+        <div class="text-gray-500 dark:text-gray-400 my-1">
+          Due Date: {{ task.due_date ? (task.due_date | date) : 'Not set' }}
+        </div>
+        <div [class]="'text-sm font-medium mb-4 ' + (task.completed ? ' text-green-600 ' : ' text-red-600 ')">
+          {{ task.completed ? 'Completed' : 'Not Completed' }}
+        </div>
+        <div class="text-gray-500 dark:text-gray-400">
+          Created At: {{ task.created_at | date }}
+        </div>
+        <div class="text-gray-500 dark:text-gray-400">
+          Updated At: {{ task.updated_at | date }}
+        </div>
+      </div>
+    }
+    </div>
+    <div class="flex justify-center items-center my-4 mt-16">  
+      <app-custom-paginator 
+      [total_entries]="tasks.total_tasks" 
+      [page]="values().page" 
+      [page_size]="values().page_size" 
+      [pageSizeOptions]="[ { value: '12', title: '12 per page' }, { value: '36', title: '36 per page' }, { value: '96', title: '96 per page' }]"
+      (pageChange)="setCurrentPage($event)"
+      (pageSizeChange)="setPageSize($event)">
+    </app-custom-paginator> 
+    </div>
+    <!-- <app-task-create-modal [tasksModal]="tasksModal" (close)="tasksModal = false"></app-task-create-modal> -->
+} 
+  @if (!query.data() && !query.isPending() && !query.isError()) {  
+    <div class="h-screen flex-col justify-center">
+      <div class="text-2xl font-bold">No tasks found. Add some!</div>
+    </div>
+  }
+</div>
+
+
+<app-custom-modal 
+[title]="'Add Task'" 
+[isOpen]="isModalOpen()" 
+(close)="isModalOpen.set(false)">
+
+<div class="flex flex-col gap-6 p-2 w-full">
+  <div class="w-full">
+    <div class="font-semibold mb-3 2xl:text-lg text-base">Title</div> 
+    <app-custom-input
+      type="text"
+      id="title"
+      name="title" 
+      placeholder="Task Title"
+      [value]="taskCreate().title"    
+      [maxLength]="255" 
+      [errorMessage]="taskCreateErrors().title ?? taskCreateErrors().global"
+      (inputEvent)="changeField($event, 'title')"
+      (keyboardEvent)="handleEnterSubmit($event)"
+      (clearInputEvent)="clearField('title')"
+    ></app-custom-input>  
+  </div>
+  <div class="w-full">  
+    <div class="font-semibold mb-3 2xl:text-lg text-base">Description</div> 
+    <app-custom-input
+    type="text"
+    id="description"
+    name="description" 
+    placeholder="Task Description"
+    [value]="taskCreate().description"    
+    [maxLength]="1500"
+    [showCharacters]="true"
+    [errorMessage]="taskCreateErrors().description ?? taskCreateErrors().global"
+    (inputEvent)="changeField($event, 'description')"
+    (keyboardEvent)="handleEnterSubmit($event)"
+    (clearInputEvent)="clearField('description')"
+    ></app-custom-input>  
+  </div>
+  <div class="w-full">  
+    <div class="font-semibold mb-3 2xl:text-lg text-base">Completed</div>  
+    <app-custom-select
+      containerClassName=" w-[80px] " 
+      [options]="[{ value: 'true', title: 'Yes' }, { value: 'false', title: 'No' }]"
+      [selected]="taskCreate().completed ? 'true' : 'false'"
+      (selectionChange)="setCompleted($event)">
+    </app-custom-select>
+  </div>
+  <div class="w-full">  
+    <div class="font-semibold mb-3 2xl:text-lg text-base">Due Date</div> 
+    <div class="text-black"> 
+      <mat-form-field> 
+        <mat-label>Enter a date</mat-label>
+        <input
+        matInput
+        [matDatepicker]="picker" 
+        (dateChange)="setDuedate( $event)"
+        /> 
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div> 
+  </div>
+
+  <div class="w-full flex gap-2 justify-end"> 
+    <button [class]="btnClassPrimaryDarkBlue + ' w-[115px] cursor-pointer'"
+    (click)="handleClickSubmit($event)">Create</button>
+  </div>
+</div>
+</app-custom-modal>

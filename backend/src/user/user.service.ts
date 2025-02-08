@@ -65,6 +65,6 @@ export class UserService {
         password: hashedPasswordNew,
       },
     });
-    return "Successfully changed password";
+    return {detail: "Successfully changed password"};
   }
 }

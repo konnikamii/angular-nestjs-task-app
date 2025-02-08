@@ -1,20 +1,22 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, lastValueFrom } from 'rxjs';
-import { User } from '../utils_other/types';
+import { lastValueFrom, catchError } from 'rxjs';
 import { BACKEND_URL } from '../utils_other/defaults';
+import { TasksGet, TasksIn, User } from '../utils_other/types';
 import { toastMessage } from '../utils_other/helperFunctions';
- 
+
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class TaskService {
 
   private http = inject(HttpClient)
 
-  getUser(): Promise<User> {
+  getTasksPaginated({page,page_size,sort_by, sort_type } : TasksGet): Promise<TasksIn> {
     return lastValueFrom(
-      this.http.get<User>(`${BACKEND_URL}api/user/`, {headers: {Authorization: `Bearer ${localStorage.getItem('access_token')}`}}).pipe(
+      this.http.post<TasksIn>(`${BACKEND_URL}api/tasks/`,
+        { page, page_size, sort_by, sort_type },
+        { headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` } }).pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status === 401) {
             toastMessage('Session Expired', 'error', 1500 );
@@ -26,6 +28,5 @@ export class UserService {
       ),
     )
   }
- 
   constructor() { }
 }

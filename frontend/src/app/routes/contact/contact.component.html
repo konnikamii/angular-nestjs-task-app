@@ -30,9 +30,9 @@
             [maxLength]="255"
             prefixIcon="user"
             [errorMessage]="errors().name ?? errors().global"
-            (inputEvent)="handleInputChangeName($event)"
+            (inputEvent)="changeField($event, 'name')"
             (keyboardEvent)="handleEnterSubmit($event)"
-            (clearInputEvent)="clearName()"
+            (clearInputEvent)="clearField('name')"
           ></app-custom-input>
         </div> 
       </div> 
@@ -50,9 +50,9 @@
             [maxLength]="255"
             prefixIcon="email"
             [errorMessage]="errors().email ?? errors().global"
-            (inputEvent)="handleInputChangeEmail($event)"
+            (inputEvent)="changeField($event, 'email')"
             (keyboardEvent)="handleEnterSubmit($event)"
-            (clearInputEvent)="clearEmail()"
+            (clearInputEvent)="clearField('email')"
           ></app-custom-input>
         </div> 
       </div>  
@@ -69,9 +69,9 @@
             [value]="values().subject"
             [maxLength]="255"  
             [errorMessage]="errors().subject ?? errors().global"
-            (inputEvent)="handleInputChangeSubject($event)"
+            (inputEvent)="changeField($event, 'subject')"
             (keyboardEvent)="handleEnterSubmit($event)"
-            (clearInputEvent)="clearSubject()"
+            (clearInputEvent)="clearField('subject')"
           ></app-custom-input>
         </div>
       </div> 
@@ -89,9 +89,9 @@
             [maxLength]="1500"
             [showCharacters]="true" 
             [errorMessage]="errors().message ?? errors().global"
-            (inputEvent)="handleInputChangeMessage($event)"
+            (inputEvent)="changeField($event, 'message')"
             (keyboardEvent)="handleEnterSubmit($event)"
-            (clearInputEvent)="clearMessage()"
+            (clearInputEvent)="clearField('message')"
           ></app-custom-input>
         </div>
       </div> 

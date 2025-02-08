@@ -69,8 +69,7 @@ export class TaskService {
   async getTasksPaginated(owner_id: number, dto: GetTasksPaginatedDto) {
     const { page, page_size, sort_by, sort_type } = dto;
     const skip = (page - 1) * page_size;
-    const orderBy = sort_by ? { [sort_by]: sort_type || 'asc' } : {};
-
+    const orderBy = sort_by ? { [sort_by]: sort_type || 'asc' } : {}; 
     const tasks = await this.prismaService.task.findMany({
       where: { owner_id: owner_id },
       skip,
