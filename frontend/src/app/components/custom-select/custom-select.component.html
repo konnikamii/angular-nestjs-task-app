@@ -1,16 +1,23 @@
-<div [class]="'relative inline-block ' + (containerClassName())">
+<div [class]="'relative inline-block ' + containerClassName()">
   <div [class]="selectionClassName()" (click)="toggleDropdown()">
-    {{ selectedTitle }} 
+    {{ selectedTitle }}
     <span class="float-right">&#9662;</span>
   </div>
   @if (isOpen()){
-  <div id="dropdown" [class]="dropdownClassName() + (openUpwards() ? ' bottom-full mb-1' : ' mt-1')">
+  <div
+    id="dropdown"
+    [class]="
+      dropdownClassName() + (openUpwards() ? ' bottom-full mb-1' : ' mt-1')
+    "
+  >
     @for (option of options(); track option.value; let i = $index){
-    <div class="px-3 py-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-50" 
-    (click)="selectOption(i)">
+    <div
+      class="px-3 py-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-50"
+      (click)="selectOption(i)"
+    >
       {{ option.title }}
     </div>
-  }
+    }
   </div>
-}
+  }
 </div>

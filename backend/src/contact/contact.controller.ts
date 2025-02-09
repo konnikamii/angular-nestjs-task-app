@@ -1,6 +1,12 @@
-import { Body, Controller, HttpCode, Post, UseInterceptors } from '@nestjs/common';
-import { ContactService } from './contact.service'; 
-import {   NoFilesInterceptor } from '@nestjs/platform-express';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+  UseInterceptors,
+} from '@nestjs/common';
+import { ContactService } from './contact.service';
+import { NoFilesInterceptor } from '@nestjs/platform-express';
 import { CreateContactDto } from './dto';
 
 @Controller('api')

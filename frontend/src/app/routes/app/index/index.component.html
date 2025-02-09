@@ -1,28 +1,27 @@
-
 <div class="flex flex-col items-center min-h-screen">
   <!-- Welcome screen -->
-  <div class="w-full bg-gradient-to-r to-[50%] py-6 shadow-lg from-[#86b817] to-[#0064d2] text-white shadow-gray-300 dark:from-[#a3d85f] dark:to-[#1e85e6] dark:text-black dark:shadow-gray-700">
+  <div
+    class="w-full bg-gradient-to-r to-[50%] py-6 shadow-lg from-[#86b817] to-[#0064d2] text-white shadow-gray-300 dark:from-[#a3d85f] dark:to-[#1e85e6] dark:text-black dark:shadow-gray-700"
+  >
     <div class="max-w-7xl mx-auto px-6 text-center">
-      <div class="text-4xl font-bold">
-        Welcome to Your Task Manager
-      </div>
+      <div class="text-4xl font-bold">Welcome to Your Task Manager</div>
       <div class="mt-2 text-lg">
         Track and analyze your tasks and improve your task management skills.
       </div>
     </div>
-  </div> 
+  </div>
   <!-- Features section -->
-  <div class="max-w-7xl mx-auto px-6 py-12 transition-all duration-500 ease-in-out" 
-  [style.transition]="'all 0.5s ease-in-out'"
-  [style.opacity]="animate() ? '100%' : '0%'"
-  [style.transform]="animate() ? 'translateY(0)' : 'translateY(50px)'"
-  [style.transitionDelay]="animate() ?  '0ms' : '0ms'" >
+  <div
+    class="max-w-7xl mx-auto px-6 py-12 transition-all duration-500 ease-in-out"
+    [style.transition]="'all 0.5s ease-in-out'"
+    [style.opacity]="animate() ? '100%' : '0%'"
+    [style.transform]="animate() ? 'translateY(0)' : 'translateY(50px)'"
+    [style.transitionDelay]="animate() ? '0ms' : '0ms'"
+  >
     <h2 class="text-3xl font-bold mb-6">Features</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       <div [class]="cardClassName">
-        <h3 class="text-xl font-semibold mb-2">
-          Create and Manage Tasks
-        </h3>
+        <h3 class="text-xl font-semibold mb-2">Create and Manage Tasks</h3>
         <p>
           Create tasks, manage them, update them, and delete them with ease.
         </p>
@@ -30,13 +29,15 @@
       <div [class]="cardClassName">
         <h3 class="text-xl font-semibold mb-2">Dashboard</h3>
         <p>
-          View upcoming tasks, completed tasks, and recently added tasks. Sort tasks by multiple criteria.
+          View upcoming tasks, completed tasks, and recently added tasks. Sort
+          tasks by multiple criteria.
         </p>
       </div>
       <div [class]="cardClassName">
         <h3 class="text-xl font-semibold mb-2">Top Users</h3>
         <p>
-          See the top users with the most tasks and track their performance and task completion.
+          See the top users with the most tasks and track their performance and
+          task completion.
         </p>
       </div>
       <div [class]="cardClassName">
@@ -45,16 +46,12 @@
       </div>
       <div [class]="cardClassName">
         <h3 class="text-xl font-semibold mb-2">Dark Theme</h3>
-        <p>
-          Switch between light and dark themes to suit your preference.
-        </p>
+        <p>Switch between light and dark themes to suit your preference.</p>
       </div>
       <div [class]="cardClassName">
         <h3 class="text-xl font-semibold mb-2">Responsive Design</h3>
-        <p>
-          Enjoy a seamless experience on both desktop and mobile devices.
-        </p>
+        <p>Enjoy a seamless experience on both desktop and mobile devices.</p>
       </div>
     </div>
-  </div> 
+  </div>
 </div>

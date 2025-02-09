@@ -1,6 +1,6 @@
-/* You can add global styles to this file, and also import other style files */ 
-@use "tailwind-import.css";  
-@use '@angular/material' as mat;
+/* You can add global styles to this file, and also import other style files */
+@use "tailwind-import.css";
+@use "@angular/material" as mat;
 
 :root {
   /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
@@ -36,17 +36,17 @@
   --circle-size: 80%;
   --blending: hard-light;
 
-   
-  @include mat.datepicker-overrides((
-    calendar-date-selected-state-text-color: rgb(255, 255, 255),
-    calendar-date-selected-state-background-color: rgb(5, 71, 146),
-    calendar-container-background-color: rgb(105, 101, 101),  
-  ));
+  @include mat.datepicker-overrides(
+    (
+      calendar-date-selected-state-text-color: rgb(255, 255, 255),
+      calendar-date-selected-state-background-color: rgb(5, 71, 146),
+      calendar-container-background-color: rgb(105, 101, 101),
+    )
+  );
 }
 #root * {
   scrollbar-width: thin;
 }
-
 
 body {
   font-family: "Inter", sans-serif;
@@ -76,24 +76,18 @@ html {
   visibility: hidden;
 }
 .group:hover .underline-animation::after {
-  transition:
-    transform 0.3s ease-in-out,
-    visibility 0s ease-in-out;
+  transition: transform 0.3s ease-in-out, visibility 0s ease-in-out;
   transform: scaleX(1);
   visibility: visible;
 }
 .group-fast:hover .underline-animation::after {
-  transition:
-    transform 0.15s ease-in-out,
-    visibility 0s ease-in-out;
+  transition: transform 0.15s ease-in-out, visibility 0s ease-in-out;
   transform: scaleX(1);
   visibility: visible;
 }
 
 .underline-animation-active .underline-animation::after {
-  transition:
-    transform 0.3s ease-in-out,
-    visibility 0s ease-in-out;
+  transition: transform 0.3s ease-in-out, visibility 0s ease-in-out;
   transform: scaleX(1);
   visibility: visible;
 }
@@ -136,9 +130,7 @@ html {
   );
   background-size: 200% 200%;
   animation: animateGlow 6.25s linear infinite;
-  transition:
-    transform 0.3s ease,
-    background-size 0.3s ease;
+  transition: transform 0.3s ease, background-size 0.3s ease;
 }
 
 .box:hover::after {
@@ -209,9 +201,7 @@ html {
 
 .animate-fade-in-up-scroll {
   opacity: 0;
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .animate-fade-in-up-scroll.visible {
@@ -219,9 +209,7 @@ html {
 }
 .animate-fade-in-right-scroll {
   opacity: 0;
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .animate-fade-in-right-scroll.visible {
@@ -231,9 +219,7 @@ html {
 .animate-scale-in {
   opacity: 0;
   transform: scale(0.7);
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .animate-scale-in.visible {
@@ -287,7 +273,7 @@ html {
 }
 .sandwich-open .sandwich-path.top {
   transform: rotate(45deg) translate(1px, 7px);
-} 
+}
 .sandwich-open .sandwich-path.middle {
   opacity: 0;
 }
@@ -298,9 +284,7 @@ html {
 
 /* Mobile Menu */
 #mobile-menu {
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
   transform: translateY(-100%);
   opacity: 0;
 }
@@ -311,9 +295,7 @@ html {
 }
 /* Cookie Banner */
 #cookie-consent-banner {
-  transition:
-    opacity 0.5s ease,
-    transform 0.5s ease-out;
+  transition: opacity 0.5s ease, transform 0.5s ease-out;
   transform: translateY(100%);
   opacity: 0;
 }
@@ -391,24 +373,18 @@ html {
   visibility: hidden;
 }
 .group:hover .underline-animation::after {
-  transition:
-    transform 0.3s ease-in-out,
-    visibility 0s ease-in-out;
+  transition: transform 0.3s ease-in-out, visibility 0s ease-in-out;
   transform: scaleX(1);
   visibility: visible;
 }
 .group-fast:hover .underline-animation::after {
-  transition:
-    transform 0.15s ease-in-out,
-    visibility 0s ease-in-out;
+  transition: transform 0.15s ease-in-out, visibility 0s ease-in-out;
   transform: scaleX(1);
   visibility: visible;
 }
 
 .underline-animation-active .underline-animation::after {
-  transition:
-    transform 0.3s ease-in-out,
-    visibility 0s ease-in-out;
+  transition: transform 0.3s ease-in-out, visibility 0s ease-in-out;
   transform: scaleX(1);
   visibility: visible;
 }
@@ -420,9 +396,7 @@ html {
 
 /* #region Sandwich */
 .sandwich-path {
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
   transform-origin: center;
 }
 .sandwich-open .sandwich-path.top {
@@ -438,9 +412,7 @@ html {
 
 /* #region Filter */
 .filter-path {
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
   transform-origin: center;
 }
 .filter-search .filter-path.on {
@@ -485,9 +457,7 @@ html {
 
 /* #region NotesFC*/
 .video-svg {
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   transform-origin: center;
 }
 .video-svg.left {
@@ -564,9 +534,7 @@ html {
 
 /* #region Arrows Left Right */
 .left-arrow-svg {
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   transform-origin: center;
 }
 .left-arrow-svg.right {
@@ -582,9 +550,7 @@ html {
   opacity: 1;
 }
 .right-arrow-svg {
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   transform-origin: center;
 }
 .right-arrow-svg.left {
@@ -601,9 +567,7 @@ html {
 }
 
 .left-dbl-arrow-svg {
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   transform-origin: center;
 }
 .left-dbl-arrow-svg.right {
@@ -624,9 +588,7 @@ html {
 }
 
 .right-dbl-arrow-svg {
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   transform-origin: center;
 }
 .right-dbl-arrow-svg.left {
@@ -799,7 +761,6 @@ html {
   border-right-color: rgb(124, 124, 124);
 }
 /* #endregion*/
-  
 
 @keyframes slideDownFadeIn {
   0% {
@@ -840,4 +801,37 @@ html {
 }
 .toast-message.slide-out {
   animation: slideUpFadeOut 0.6s ease-out forwards;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader-dots {
+  width: 17px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #000;
+  display: grid;
+  animation: l22-0 2s infinite linear;
+}
+.loader-dots:before,
+.loader-dots:after {
+  content: "";
+  grid-area: 1/1;
+  margin: 15%;
+  border-radius: 50%;
+  background: inherit;
+  transform: rotate(0deg) translate(150%);
+  animation: l22 1s infinite;
+}
+.loader-dots:after {
+  animation-delay: -0.5s;
+}
+@keyframes l22-0 {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+@keyframes l22 {
+  100% {
+    transform: rotate(1turn) translate(150%);
+  }
 }

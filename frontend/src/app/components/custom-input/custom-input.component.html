@@ -1,22 +1,67 @@
-<div class="relative size-full mb-4"> 
+<div class="relative size-full mb-4">
   <div class="mt-1 relative rounded-md shadow-sm">
     <div class="absolute inset-y-0 left-0 pl-2 flex items-center">
-    @if (prefixIcon() === 'user') { 
-        <svg [class]="prefixClass() ?? 'stroke-black dark:stroke-white size-[18px]'" viewBox="0 0 32 32" fill="none" >
-          <path d="M4 30C4 30 4.54545 17 15.9998 17C27.4542 17 28 30 28 30" strokeWidth="2.8" fill="none"/>
-          <circle cx="16" cy="10" r="7" strokeWidth="2.8"/>
-        </svg> 
-    } @else if (prefixIcon() === 'password') { 
-      <svg [class]="prefixClass() ?? 'stroke-black dark:stroke-white size-[18px]'" viewBox="0 0 32 32" fill="none" >
-        <path d="M10.5 12H6.5C5.39543 12 4.5 12.8954 4.5 14V26.5C4.5 27.6046 5.39543 28.5 6.5 28.5H25.5C26.6046 28.5 27.5 27.6046 27.5 26.5V14C27.5 12.8954 26.6046 12 25.5 12H21.5M10.5 12V8.5C10.5 5.46243 12.9624 3 16 3V3C19.0376 3 21.5 5.46243 21.5 8.5V12M10.5 12H21.5" strokeWidth="1.8"/>
-        <path d="M13.8236 19.6884L13.7943 19.6532C12.7964 18.4557 12.9362 16.6808 14.1093 15.6543C15.1918 14.7071 16.8082 14.7071 17.8907 15.6543C19.0638 16.6808 19.2036 18.4557 18.2057 19.6532L18.1764 19.6884C17.7393 20.2128 17.5 20.8738 17.5 21.5565V23.8787C17.5 24.2765 17.342 24.658 17.0607 24.9393C16.4749 25.5251 15.5251 25.5251 14.9393 24.9393C14.658 24.658 14.5 24.2765 14.5 23.8787V21.5565C14.5 20.8738 14.2607 20.2128 13.8236 19.6884Z" strokeWidth="1.5"/>
-      </svg>  
-      } @else if (prefixIcon() === 'email') { 
-        <svg [class]="prefixClass() ?? 'stroke-black dark:stroke-white size-[18px]'" viewBox="0 0 32 32" fill="none" >
-          <path d="M5 7L15.2774 17.7445C15.6712 18.1562 16.3288 18.1562 16.7226 17.7445L27 7M27 24.5L18 16M5.06973 24.5L14 16M7 25.5H25C26.6569 25.5 28 24.1569 28 22.5V9C28 7.34315 26.6569 6 25 6H7C5.34315 6 4 7.34315 4 9V22.5C4 24.1569 5.34315 25.5 7 25.5Z" fill="none" strokeWidth="1.8"/>
-        </svg>  
+      @if (prefixIcon() === 'user') {
+      <svg
+        [class]="prefixClass() ?? 'stroke-black dark:stroke-white size-[18px]'"
+        viewBox="0 0 32 32"
+        fill="none"
+      >
+        <path
+          d="M4 30C4 30 4.54545 17 15.9998 17C27.4542 17 28 30 28 30"
+          strokeWidth="2.8"
+          fill="none"
+        />
+        <circle cx="16" cy="10" r="7" strokeWidth="2.8" />
+      </svg>
+      } @else if (prefixIcon() === 'password') {
+      <svg
+        [class]="prefixClass() ?? 'stroke-black dark:stroke-white size-[18px]'"
+        viewBox="0 0 32 32"
+        fill="none"
+      >
+        <path
+          d="M10.5 12H6.5C5.39543 12 4.5 12.8954 4.5 14V26.5C4.5 27.6046 5.39543 28.5 6.5 28.5H25.5C26.6046 28.5 27.5 27.6046 27.5 26.5V14C27.5 12.8954 26.6046 12 25.5 12H21.5M10.5 12V8.5C10.5 5.46243 12.9624 3 16 3V3C19.0376 3 21.5 5.46243 21.5 8.5V12M10.5 12H21.5"
+          strokeWidth="1.8"
+        />
+        <path
+          d="M13.8236 19.6884L13.7943 19.6532C12.7964 18.4557 12.9362 16.6808 14.1093 15.6543C15.1918 14.7071 16.8082 14.7071 17.8907 15.6543C19.0638 16.6808 19.2036 18.4557 18.2057 19.6532L18.1764 19.6884C17.7393 20.2128 17.5 20.8738 17.5 21.5565V23.8787C17.5 24.2765 17.342 24.658 17.0607 24.9393C16.4749 25.5251 15.5251 25.5251 14.9393 24.9393C14.658 24.658 14.5 24.2765 14.5 23.8787V21.5565C14.5 20.8738 14.2607 20.2128 13.8236 19.6884Z"
+          strokeWidth="1.5"
+        />
+      </svg>
+      } @else if (prefixIcon() === 'email') {
+      <svg
+        [class]="prefixClass() ?? 'stroke-black dark:stroke-white size-[18px]'"
+        viewBox="0 0 32 32"
+        fill="none"
+      >
+        <path
+          d="M5 7L15.2774 17.7445C15.6712 18.1562 16.3288 18.1562 16.7226 17.7445L27 7M27 24.5L18 16M5.06973 24.5L14 16M7 25.5H25C26.6569 25.5 28 24.1569 28 22.5V9C28 7.34315 26.6569 6 25 6H7C5.34315 6 4 7.34315 4 9V22.5C4 24.1569 5.34315 25.5 7 25.5Z"
+          fill="none"
+          strokeWidth="1.8"
+        />
+      </svg>
       }
-    </div> 
+    </div>
+    @if (isTextarea()){
+    <textarea
+      [id]="id()"
+      [name]="name()"
+      [value]="value()"
+      [attr.maxlength]="maxLength()"
+      (input)="inputEventEmitter($event)"
+      (keydown)="keyboardEventEmitter($event)"
+      [class]="
+        'block w-full pr-10 py-2 min-h-[56px] max-h-[500px] rounded-md shadow-sm bg-gray-50 border placeholder-gray-400 focus:ring-indigo-500 sm:text-sm text-black dark:bg-gray-700 dark:text-white disabled:cursor-not-allowed disabled:opacity-50 transition-colors duration-300 ' +
+        (errorMessage()
+          ? ' border-red-600 '
+          : ' border-gray-300 focus:border-indigo-500 dark:border-gray-600 ') +
+        (prefixIcon() ? ' pl-8 ' : ' pl-3 ')
+      "
+      [placeholder]="placeholder()"
+      [disabled]="isDisabled()"
+    ></textarea>
+    } @else {
     <input
       [type]="type()"
       [id]="id()"
@@ -25,26 +70,48 @@
       [attr.maxlength]="maxLength()"
       (input)="inputEventEmitter($event)"
       (keydown)="keyboardEventEmitter($event)"
-      [class]="'block w-full pr-10 py-2 rounded-md shadow-sm bg-gray-50 border placeholder-gray-400 focus:ring-indigo-500 sm:text-sm text-black dark:bg-gray-700 dark:text-white disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 ' + (errorMessage() ? ' border-red-600 ' : ' border-gray-300 focus:border-indigo-500 dark:border-gray-600 ') + (prefixIcon() ? ' pl-8 ':' pl-3 ')"
+      [class]="
+        'block w-full pr-10 py-2 rounded-md shadow-sm bg-gray-50 border placeholder-gray-400 focus:ring-indigo-500 sm:text-sm text-black dark:bg-gray-700 dark:text-white disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 ' +
+        (errorMessage()
+          ? ' border-red-600 '
+          : ' border-gray-300 focus:border-indigo-500 dark:border-gray-600 ') +
+        (prefixIcon() ? ' pl-8 ' : ' pl-3 ')
+      "
       [placeholder]="placeholder()"
       [disabled]="isDisabled()"
     />
-    @if (showCharacters()) { 
-      <div [class]="'absolute top-[105%] right-0 pr-3 flex items-center text-sm ' + ( value()?.length === maxLength() ? 'text-red-600' : 'text-gray-400 dark:text-gray-600')">
-        {{ value()?.length ?? 0  }} / {{ maxLength() }}
-      </div>
-    }
-    @if (value() && allowClear()) { 
-    <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" (click)="clearInput()">
-      <svg class="fill-black dark:fill-white size-[18px] hover:opacity-50 transition-all duration-200" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16 29c-7.18 0-13-5.82-13-13s5.82-13 13-13 13 5.82 13 13-5.82 13-13 13zM21.961 12.209c0.244-0.244 0.244-0.641 0-0.885l-1.328-1.327c-0.244-0.244-0.641-0.244-0.885 0l-3.761 3.761-3.761-3.761c-0.244-0.244-0.641-0.244-0.885 0l-1.328 1.327c-0.244 0.244-0.244 0.641 0 0.885l3.762 3.762-3.762 3.76c-0.244 0.244-0.244 0.641 0 0.885l1.328 1.328c0.244 0.244 0.641 0.244 0.885 0l3.761-3.762 3.761 3.762c0.244 0.244 0.641 0.244 0.885 0l1.328-1.328c0.244-0.244 0.244-0.641 0-0.885l-3.762-3.76 3.762-3.762z"></path>
+    } @if (showCharacters()) {
+    <div
+      [class]="
+        'absolute top-[105%] right-0 pr-3 flex items-center text-sm ' +
+        (value()?.length === maxLength()
+          ? 'text-red-600'
+          : 'text-gray-400 dark:text-gray-600')
+      "
+    >
+      {{ value()?.length ?? 0 }} / {{ maxLength() }}
+    </div>
+    } @if (value() && allowClear()) {
+    <div
+      class="absolute top-[8px] right-0 pr-3 flex items-center cursor-pointer"
+      (click)="clearInput()"
+    >
+      <svg
+        class="fill-black dark:fill-white size-[18px] hover:opacity-50 transition-all duration-200"
+        viewBox="0 0 32 32"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M16 29c-7.18 0-13-5.82-13-13s5.82-13 13-13 13 5.82 13 13-5.82 13-13 13zM21.961 12.209c0.244-0.244 0.244-0.641 0-0.885l-1.328-1.327c-0.244-0.244-0.641-0.244-0.885 0l-3.761 3.761-3.761-3.761c-0.244-0.244-0.641-0.244-0.885 0l-1.328 1.327c-0.244 0.244-0.244 0.641 0 0.885l3.762 3.762-3.762 3.76c-0.244 0.244-0.244 0.641 0 0.885l1.328 1.328c0.244 0.244 0.641 0.244 0.885 0l3.761-3.762 3.761 3.762c0.244 0.244 0.641 0.244 0.885 0l1.328-1.328c0.244-0.244 0.244-0.641 0-0.885l-3.762-3.76 3.762-3.762z"
+        ></path>
       </svg>
     </div>
-  }
+    }
   </div>
   <div
-    class="'pt-1 text-sm text-red-600 transition-all duration-300 ' + (errorMessage() ? 'max-h-40' : 'max-h-0')" 
-    style="overflow: hidden;"
+    class="'pt-1 text-sm text-red-600 transition-all duration-300 ' + (errorMessage() ? 'max-h-40' : 'max-h-0')"
+    style="overflow: hidden"
   >
     {{ errorMessage() }}
   </div>

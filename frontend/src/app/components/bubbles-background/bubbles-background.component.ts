@@ -4,7 +4,7 @@ import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
   selector: 'app-bubbles-background',
   imports: [],
   templateUrl: './bubbles-background.component.html',
-  styleUrl: './bubbles-background.component.scss'
+  styleUrl: './bubbles-background.component.scss',
 })
 export class BubblesBackgroundComponent implements OnInit, OnDestroy {
   private curX = 0;
@@ -38,9 +38,12 @@ export class BubblesBackgroundComponent implements OnInit, OnDestroy {
     this.curX += (this.tgX - this.curX) / 20;
     this.curY += (this.tgY - this.curY) / 20;
     if (this.interBubble) {
-      this.renderer.setStyle(this.interBubble, 'transform', `translate(${Math.round(this.curX)}px, ${Math.round(this.curY)}px)`);
+      this.renderer.setStyle(
+        this.interBubble,
+        'transform',
+        `translate(${Math.round(this.curX)}px, ${Math.round(this.curY)}px)`
+      );
       this.animationFrameId = requestAnimationFrame(this.move);
     }
   };
-
 }

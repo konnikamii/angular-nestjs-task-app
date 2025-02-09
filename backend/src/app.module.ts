@@ -8,6 +8,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { ContactModule } from './contact/contact.module';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -15,12 +16,17 @@ import { MailerModule } from '@nestjs-modules/mailer';
       envFilePath: '.env',
       isGlobal: true,
     }),
-    MailerModule.forRoot({
-      transport: {
-        host: 'localhost',
-        port: 1025,
-        secure: false, 
-      },
+    MailerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        const hostname = configService.get<string>('MAIL_HOST'); 
+        return { transport: {
+          host: hostname,
+          port: 1025,
+          secure: false,
+        },}
+      }, 
     }),
     AuthModule,
     UserModule,
@@ -29,6 +35,6 @@ import { MailerModule } from '@nestjs-modules/mailer';
     PrismaModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, ConfigService],
 })
 export class AppModule {}

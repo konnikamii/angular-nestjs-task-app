@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -14,7 +15,7 @@ export const routes: Routes = [
         pathMatch: 'full',
         loadComponent: () =>
           import('./routes/home/home.component').then((m) => m.HomeComponent),
-      }, 
+      },
       {
         path: '',
         component: AuthLayoutComponent,
@@ -22,7 +23,9 @@ export const routes: Routes = [
           {
             path: 'login',
             loadComponent: () =>
-              import('./routes/login/login.component').then((m) => m.LoginComponent),
+              import('./routes/login/login.component').then(
+                (m) => m.LoginComponent
+              ),
           },
           {
             path: 'register',
@@ -36,7 +39,9 @@ export const routes: Routes = [
       {
         path: 'contact',
         loadComponent: () =>
-          import('./routes/contact/contact.component').then((m) => m.ContactComponent),
+          import('./routes/contact/contact.component').then(
+            (m) => m.ContactComponent
+          ),
       },
       {
         path: 'tos',
@@ -46,13 +51,16 @@ export const routes: Routes = [
       {
         path: 'privacy',
         loadComponent: () =>
-          import('./routes/privacy/privacy.component').then((m) => m.PrivacyComponent),
+          import('./routes/privacy/privacy.component').then(
+            (m) => m.PrivacyComponent
+          ),
       },
     ],
   },
   {
     path: 'app',
     component: AppLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -76,10 +84,30 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'tasks/:id',
+        loadComponent: () =>
+          import('./routes/app/task-id/task-id.component').then(
+            (m) => m.TaskIdComponent
+          ),
+      },
+      {
         path: 'user',
         loadComponent: () =>
           import('./routes/app/user/user.component').then(
             (m) => m.UserComponent
+          ),
+      },
+    ],
+  },
+  {
+    path: '',
+    component: HomeLayoutComponent,
+    children: [
+      {
+        path: '**',
+        loadComponent: () =>
+          import('./routes/not-found/not-found.component').then(
+            (m) => m.NotFoundComponent
           ),
       },
     ],

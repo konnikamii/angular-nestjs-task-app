@@ -1,8 +1,8 @@
 import { easeLinear, select } from "d3";
-import dayjs from "dayjs";
-import duration from "dayjs/plugin/duration";
+// import dayjs from "dayjs";
+// import duration from "dayjs/plugin/duration";
 
-dayjs.extend(duration);
+// dayjs.extend(duration);
 
 // User
 export const validateUsername = (value: string | null) => {
@@ -104,34 +104,34 @@ export function compareArrays(arr1: string[], arr2: string[]) {
 }
 
 // Formatting
-export function formatDuration(isoDuration: string) {
-  const parsedDuration = dayjs.duration(isoDuration);
-  const days = parsedDuration.days();
-  const hours = parsedDuration.hours();
-  const minutes = parsedDuration.minutes();
-  const seconds = Math.round(parsedDuration.asSeconds() % 60);
-  return days
-    ? `${days}d ${hours}h ${minutes}m`
-    : hours
-      ? `${hours}h ${minutes}m ${seconds === 0 ? "" : `${seconds}s`}`
-      : minutes
-        ? `${minutes}m ${seconds === 0 ? "" : `${seconds}s`}`
-        : `${seconds}s`;
-}
-export function formatDurationSeconds(seconds: number) {
-  const parsedDuration = dayjs.duration(seconds, "seconds");
-  const days = parsedDuration.days();
-  const hours = parsedDuration.hours();
-  const minutes = parsedDuration.minutes();
-  const remainingSeconds = Math.round(parsedDuration.asSeconds() % 60);
-  return days
-    ? `${days}d ${hours}h ${minutes}m`
-    : hours
-      ? `${hours}h ${minutes}m ${remainingSeconds === 0 ? "" : `${remainingSeconds}s`}`
-      : minutes
-        ? `${minutes}m ${remainingSeconds === 0 ? "" : `${remainingSeconds}s`}`
-        : `${remainingSeconds}s`;
-}
+// export function formatDuration(isoDuration: string) {
+//   const parsedDuration = dayjs.duration(isoDuration);
+//   const days = parsedDuration.days();
+//   const hours = parsedDuration.hours();
+//   const minutes = parsedDuration.minutes();
+//   const seconds = Math.round(parsedDuration.asSeconds() % 60);
+//   return days
+//     ? `${days}d ${hours}h ${minutes}m`
+//     : hours
+//       ? `${hours}h ${minutes}m ${seconds === 0 ? "" : `${seconds}s`}`
+//       : minutes
+//         ? `${minutes}m ${seconds === 0 ? "" : `${seconds}s`}`
+//         : `${seconds}s`;
+// }
+// export function formatDurationSeconds(seconds: number) {
+//   const parsedDuration = dayjs.duration(seconds, "seconds");
+//   const days = parsedDuration.days();
+//   const hours = parsedDuration.hours();
+//   const minutes = parsedDuration.minutes();
+//   const remainingSeconds = Math.round(parsedDuration.asSeconds() % 60);
+//   return days
+//     ? `${days}d ${hours}h ${minutes}m`
+//     : hours
+//       ? `${hours}h ${minutes}m ${remainingSeconds === 0 ? "" : `${remainingSeconds}s`}`
+//       : minutes
+//         ? `${minutes}m ${remainingSeconds === 0 ? "" : `${remainingSeconds}s`}`
+//         : `${remainingSeconds}s`;
+// }
 export function formatCreatedAtDate(dateString: string) {
   return `${new Date(dateString).toLocaleDateString("en-CA")} ${new Date(
     dateString,

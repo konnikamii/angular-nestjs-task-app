@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException  } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ChangePasswordDto, GetUsersDto } from './dto';
 import * as argon from 'argon2';
@@ -20,7 +20,7 @@ export class UserService {
           Task: true,
         },
       });
-      return usersWithTasks.map(user => ({
+      return usersWithTasks.map((user) => ({
         ...user,
         tasks: user.Task,
         Task: undefined,
@@ -51,7 +51,10 @@ export class UserService {
     if (!currentPassword) {
       throw new BadRequestException('User not found');
     }
-    const passwordMatches = await argon.verify(currentPassword.password, dto.old_password);
+    const passwordMatches = await argon.verify(
+      currentPassword.password,
+      dto.old_password,
+    );
     if (!passwordMatches) {
       throw new BadRequestException('Old password incorrect');
     }
@@ -65,6 +68,6 @@ export class UserService {
         password: hashedPasswordNew,
       },
     });
-    return {detail: "Successfully changed password"};
+    return { detail: 'Successfully changed password' };
   }
 }

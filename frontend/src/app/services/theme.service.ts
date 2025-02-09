@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ThemeService {
   private themeSubject: BehaviorSubject<'light' | 'dark'>;
@@ -10,7 +10,11 @@ export class ThemeService {
 
   constructor() {
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
-    const defaultTheme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const defaultTheme =
+      savedTheme ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light');
     if (!savedTheme) {
       localStorage.setItem('theme', defaultTheme);
     }

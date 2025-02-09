@@ -1,1 +1,262 @@
-<div>Hello from dashboard</div>
+<div
+  [class]="
+    'loader fixed top-0 right-0 m-[2px] loader-dark dark:loader-light lg:size-6 size-4 ' +
+    (queryUsers.isFetching() || loadingState() ? 'opacity-100' : 'opacity-0')
+  "
+></div>
+
+<div class="lg:min-w-[60%] lg:p-12 p-6 text-black dark:text-white">
+  <div class="flex md:flex-row flex-col gap-10 w-full">
+    <div class="flex flex-col md:w-8/12">
+      <div class="flex w-full justify-between items-center mb-4">
+        <h1 class="text-2xl font-bold mb-4">Upcoming Tasks</h1>
+      </div>
+      @if (queryUpcomingTasks.isPending()) {
+      <div class="py-10">
+        <div class="p-8 rounded-full relative" role="status">
+          <div class="absolute size-full bg-white blur-[100px] inset-0"></div>
+          <div class="loader-dots"></div>
+        </div>
+      </div>
+      } @if (queryUpcomingTasks.isError()) {
+      <div class="py-10">
+        <div>Error fetching tasks</div>
+      </div>
+      } @if (filteredUpcomingTasks(); as upcomingTasks) { @if
+      (upcomingTasks.length > 0) {
+      <div class="grid md:grid-cols-3 grid-cols-1 gap-2">
+        @for (task of upcomingTasks; track task.id) {
+        <div
+          class="task-card p-4 border rounded-lg shadow-md transition-all duration-300 cursor-pointer bg-white hover:bg-blue-100/70 border-gray-300 dark:bg-gray-700 dark:hover:bg-gray-800 dark:border-gray-600"
+          (click)="navigateToTask(task.id)"
+        >
+          <div class="text-xl font-semibold mb-2">{{ task.title }}</div>
+          <p class="text-gray-700 dark:text-gray-300">{{ task.description }}</p>
+          <p class="text-gray-500 dark:text-gray-400">
+            Due Date:
+            {{
+              task.due_date ? (task.due_date | date : "mediumDate") : "Not set"
+            }}
+          </p>
+          <p
+            [class]="[
+              'text-sm font-medium',
+              task.completed ? 'text-green-600' : 'text-red-600'
+            ]"
+          >
+            {{ task.completed ? "Completed" : "Not Completed" }}
+          </p>
+          <p class="text-gray-500 dark:text-gray-400">
+            Created At: {{ task.created_at | date : "mediumDate" }}
+          </p>
+          <p class="text-gray-500 dark:text-gray-400">
+            Updated At: {{ task.updated_at | date : "mediumDate" }}
+          </p>
+        </div>
+        }
+      </div>
+      } @else {
+      <div class="py-10">
+        No <span class="font-semibold">upcoming (not completed)</span> tasks
+        found
+      </div>
+      } } @else {
+      <div class="py-10">
+        No <span class="font-semibold">upcoming (not completed)</span> tasks
+        found
+      </div>
+      }
+
+      <div class="flex w-full justify-between items-center my-4">
+        <h1 class="text-2xl font-bold mb-4">Completed Tasks</h1>
+      </div>
+      @if (queryCompletedTasks.isPending()) {
+      <div class="py-10">
+        <div class="p-8 rounded-full relative" role="status">
+          <div class="absolute size-full bg-white blur-[100px] inset-0"></div>
+          <div class="loader-dots"></div>
+        </div>
+      </div>
+      } @if (queryCompletedTasks.isError()) {
+      <div class="py-10">
+        <div>Error fetching tasks</div>
+      </div>
+      } @if (filteredCompletedTasks(); as completedTasks) { @if
+      (completedTasks.length > 0) {
+      <div class="grid md:grid-cols-3 grid-cols-1 gap-2">
+        @for (task of completedTasks; track task.id) {
+        <div
+          class="task-card p-4 border rounded-lg shadow-md transition-all duration-300 cursor-pointer bg-white hover:bg-blue-100/70 border-gray-300 dark:bg-gray-700 dark:hover:bg-gray-800 dark:border-gray-600"
+          (click)="navigateToTask(task.id)"
+        >
+          <div class="text-xl font-semibold mb-2">{{ task.title }}</div>
+          <p class="text-gray-700 dark:text-gray-300">{{ task.description }}</p>
+          <p class="text-gray-500 dark:text-gray-400">
+            Due Date:
+            {{
+              task.due_date ? (task.due_date | date : "mediumDate") : "Not set"
+            }}
+          </p>
+          <p
+            [class]="[
+              'text-sm font-medium',
+              task.completed ? 'text-green-600' : 'text-red-600'
+            ]"
+          >
+            {{ task.completed ? "Completed" : "Not Completed" }}
+          </p>
+          <p class="text-gray-500 dark:text-gray-400">
+            Created At: {{ task.created_at | date : "mediumDate" }}
+          </p>
+          <p class="text-gray-500 dark:text-gray-400">
+            Updated At: {{ task.updated_at | date : "mediumDate" }}
+          </p>
+        </div>
+        }
+      </div>
+      } @else {
+      <div class="py-10">
+        No <span class="font-semibold">completed</span> tasks found
+      </div>
+      } }
+
+      <div class="flex w-full justify-between items-center my-4">
+        <h1 class="text-2xl font-bold mb-4">Recently Added Tasks</h1>
+      </div>
+      @if (queryRecentTasks.isPending()) {
+      <div class="py-10">
+        <div class="p-8 rounded-full relative" role="status">
+          <div class="absolute size-full bg-white blur-[100px] inset-0"></div>
+          <div class="loader-dots"></div>
+        </div>
+      </div>
+      } @if (queryRecentTasks.isError()) {
+      <div class="py-10">
+        <div>Error fetching tasks</div>
+      </div>
+      } @if (queryRecentTasks.data(); as recentTasks) { @if
+      (recentTasks.tasks.length > 0) {
+      <div class="grid md:grid-cols-3 grid-cols-1 gap-2">
+        @for (task of recentTasks.tasks; track task.id) {
+        <div
+          class="task-card p-4 border rounded-lg shadow-md transition-all duration-300 cursor-pointer bg-white hover:bg-blue-100/70 border-gray-300 dark:bg-gray-700 dark:hover:bg-gray-800 dark:border-gray-600"
+          (click)="navigateToTask(task.id)"
+        >
+          <div class="text-xl font-semibold mb-2">{{ task.title }}</div>
+          <p class="text-gray-700 dark:text-gray-300">{{ task.description }}</p>
+          <p class="text-gray-500 dark:text-gray-400">
+            Due Date:
+            {{
+              task.due_date ? (task.due_date | date : "mediumDate") : "Not set"
+            }}
+          </p>
+          <p
+            [class]="[
+              'text-sm font-medium',
+              task.completed ? 'text-green-600' : 'text-red-600'
+            ]"
+          >
+            {{ task.completed ? "Completed" : "Not Completed" }}
+          </p>
+          <p class="text-gray-500 dark:text-gray-400">
+            Created At: {{ task.created_at | date : "mediumDate" }}
+          </p>
+          <p class="text-gray-500 dark:text-gray-400">
+            Updated At: {{ task.updated_at | date : "mediumDate" }}
+          </p>
+        </div>
+        }
+      </div>
+      } @else {
+      <div class="py-10">
+        No <span class="font-semibold">recently added</span> tasks found
+      </div>
+      } }
+    </div>
+
+    <div class="flex flex-col md:w-4/12">
+      @if (queryUsers.isPending()) {
+      <div class="py-10">
+        <div class="p-8 rounded-full relative" role="status">
+          <div class="absolute size-full bg-white blur-[100px] inset-0"></div>
+          <div class="loader-dots"></div>
+        </div>
+      </div>
+      } @if (queryUsers.isError()) {
+      <div class="py-10">
+        <div>Error fetching tasks</div>
+      </div>
+      } @if (sortedUsers(); as users) {
+      <div>
+        <div class="flex w-full justify-between items-center mb-4">
+          <h1 class="text-2xl font-bold mb-4">Top Users</h1>
+        </div>
+        <div class="grid grid-cols-1 gap-4">
+          @for (user of users; track user.id) {
+          <div
+            class="user-card p-4 border rounded-lg shadow-md transition-all duration-300 bg-white hover:bg-blue-100/70 border-gray-300 dark:bg-gray-700 dark:hover:bg-gray-800 dark:border-gray-600"
+          >
+            <h2 class="text-xl font-semibold mb-2">{{ user.username }}</h2>
+            <p class="mb-2">
+              <strong>Joined:</strong>
+              {{ user.created_at | date : "mediumDate" }}
+            </p>
+            <h3 class="text-lg font-semibold mt-4 mb-2">
+              Tasks
+              <span class="italic text-sm"
+                >(total {{ user.tasks.length }})</span
+              >
+            </h3>
+            <ul class="list-disc list-inside">
+              @for (task of user.tasks.slice(0, 6); track task.id) {
+              <li
+                [class]="
+                  'mb-2 flex justify-between items-center rounded-md px-2 py-1 transition-all duration-300  dark:hover:bg-black ' +
+                  (task.owner_id === queryUser.data()?.id
+                    ? ' cursor-pointer hover:bg-blue-500 '
+                    : ' hover:bg-gray-300')
+                "
+                (click)="
+                  task.owner_id === queryUser.data()?.id
+                    ? navigateToTask(task.id)
+                    : null
+                "
+              >
+                <div>
+                  <strong>{{ task.title }}</strong
+                  >: {{ task.description }} (Due:
+                  {{
+                    task.due_date
+                      ? (task.due_date | date : "mediumDate")
+                      : "No due date"
+                  }})
+                </div>
+                @if (task.completed) {
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  class="w-5 h-5 text-green-400 flex-shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                }
+              </li>
+              }
+            </ul>
+          </div>
+          }
+        </div>
+      </div>
+      } @else {
+      <div class="py-10">No users found</div>
+      }
+    </div>
+  </div>
+</div>

@@ -1,22 +1,35 @@
 <div class="flex items-center gap-2">
-  <button class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-300 shadow-sm hover:shadow-md border border-gray-500"
-  [disabled]="page() <= 1"
-  (click)="changePage(page() - 1)" ><</button>
-  @for (pg of pages; track pg) { 
-    @if (typeof pg === 'string') {
-      <span>...</span> 
-    } @else {
-    <button class="px-3 py-1 rounded hover:bg-blue-600 hover:text-white cursor-pointer transition-all duration-300 shadow-sm hover:shadow-md border border-gray-500"
-      [class]="(page() === pg ? ' bg-blue-500 text-white ' : ' ' ) + ( page() !== pg ? ' bg-white text-blue-500 ': ' ')"
-      (click)="changePage(+pg)">
-      {{ pg }}
-    </button>
-  }
-  } 
-  <button class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-300 shadow-sm hover:shadow-md border border-gray-500"
-  [disabled]="page() >= totalPages"
-  (click)="changePage(page() + 1)" >></button>
-<!-- 
+  <button
+    class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-300 shadow-sm hover:shadow-md border border-gray-500"
+    [disabled]="page() <= 1"
+    (click)="changePage(page() - 1)"
+  >
+    <
+  </button>
+  @for (pg of pages; track pg) { @if (typeof pg === 'string') {
+  <span>...</span>
+  } @else {
+  <button
+    class="px-3 py-1 rounded hover:bg-blue-600 dark:hover:bg-blue-800 hover:text-white cursor-pointer transition-all duration-300 shadow-sm hover:shadow-md border border-gray-500"
+    [class]="
+      (page() === pg ? ' bg-blue-500 text-white ' : ' ') +
+      (page() !== pg
+        ? ' bg-white text-blue-500 dark:bg-gray-700 dark:text-blue-300 '
+        : ' ')
+    "
+    (click)="changePage(+pg)"
+  >
+    {{ pg }}
+  </button>
+  } }
+  <button
+    class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-300 shadow-sm hover:shadow-md border border-gray-500"
+    [disabled]="page() >= totalPages"
+    (click)="changePage(page() + 1)"
+  >
+    >
+  </button>
+  <!-- 
   <select name="" id="" class="px-3 py-1 border border-gray-500 rounded" 
   (change)="changePageSize($event)">
   @for (size of pageSizeOptions(); track size) {
@@ -24,9 +37,10 @@
   }
   </select>  -->
   <app-custom-select
-          containerClassName=" w-[130px] " 
-          [options]="pageSizeOptions()"
-          [selected]="page_size().toString()"
-          (selectionChange)="changePageSize($event)">
+    containerClassName=" w-[130px] "
+    [options]="pageSizeOptions()"
+    [selected]="page_size().toString()"
+    (selectionChange)="changePageSize($event)"
+  >
   </app-custom-select>
 </div>

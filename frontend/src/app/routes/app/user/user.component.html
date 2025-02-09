@@ -1,105 +1,117 @@
-<div [class]="'loader fixed top-0 right-0 m-[2px] loader-dark dark:loader-light lg:size-6 size-4 ' + (query.isFetching() || loadingState() ? 'opacity-100' : 'opacity-0')"></div>
+<div
+  [class]="
+    'loader fixed top-0 right-0 m-[2px] loader-dark dark:loader-light lg:size-6 size-4 ' +
+    (query.isFetching() || loadingState() ? 'opacity-100' : 'opacity-0')
+  "
+></div>
 
-<div class="lg:min-w-[60%] lg:p-12 p-6 text-black dark:text-white"> 
-    @if (query.isPending()) {
-      <div class="flex justify-center items-center h-[80vh]">
-        <div class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-      </div>
-    }  
-    @if (query.isError()) {
-      <div class="flex justify-center items-center h-[80vh]">
-        <div class="text-2xl font-bold">An error occurred while fetching user data.</div>
-      </div>
-    } 
-    @if (query.data(); as data){
-      <div class="flex flex-col gap-8 p-2 2xl:w-1/3 lg:w-1/2 w-full">
-        <div class="w-full">
-          <div class="font-semibold mb-3 2xl:text-lg text-base">Username</div> 
-          <app-custom-input
-            type="text"
-            id="username"
-            name="username" 
-            [value]="data.username" 
-            prefixIcon="user" 
-            [isDisabled]="true"
-            [allowClear]="false"
-          ></app-custom-input>  
-        </div>
-        <div class="w-full">  
-          <div class="font-semibold mb-3 2xl:text-lg text-base">Email</div> 
-          <app-custom-input
-            type="email"
-            id="email"
-            name="email" 
-            [value]="data.email" 
-            prefixIcon="email" 
-            [isDisabled]="true"
-            [allowClear]="false"
-          ></app-custom-input>  
-        </div>
+<div class="lg:min-w-[60%] lg:p-12 p-6 text-black dark:text-white">
+  @if (query.isPending()) {
+  <div class="flex justify-center items-center h-[80vh]">
+    <div class="p-8 rounded-full relative" role="status">
+      <div class="absolute size-full bg-white blur-[100px] inset-0"></div>
+      <div class="loader-dots"></div>
+    </div>
+  </div>
+  } @if (query.isError()) {
+  <div class="flex justify-center items-center h-[80vh]">
+    <div class="text-2xl font-bold">
+      An error occurred while fetching user data.
+    </div>
+  </div>
+  } @if (query.data(); as data){
+  <div class="flex flex-col gap-8 p-2 2xl:w-1/3 lg:w-1/2 w-full">
+    <div class="w-full">
+      <div class="font-semibold mb-3 2xl:text-lg text-base">Username</div>
+      <app-custom-input
+        type="text"
+        id="username"
+        name="username"
+        [value]="data.username"
+        prefixIcon="user"
+        [isDisabled]="true"
+        [allowClear]="false"
+      ></app-custom-input>
+    </div>
+    <div class="w-full">
+      <div class="font-semibold mb-3 2xl:text-lg text-base">Email</div>
+      <app-custom-input
+        type="email"
+        id="email"
+        name="email"
+        [value]="data.email"
+        prefixIcon="email"
+        [isDisabled]="true"
+        [allowClear]="false"
+      ></app-custom-input>
+    </div>
 
-        <div class="w-full flex flex-col">
-          <div class="flex gap-2 items-center mb-3">
-            <div class="font-semibold 2xl:text-lg text-base">Password</div> 
-          </div>  
-          <div class="relative size-full">  
-            <app-custom-input
-              type="password"
-              id="old_password"
-              name="old_password"
-              placeholder="Old Password"
-              [value]="values().old_password"
-              [maxLength]="255" 
-              prefixIcon="password"
-              [errorMessage]="errors().old_password ?? errors().global"
-              (inputEvent)="changeField($event, 'old_password')"
-              (keyboardEvent)="handleEnterSubmit($event)"
-              (clearInputEvent)="clearField('old_password')"
-            ></app-custom-input> 
-          </div> 
-          <div class="relative size-full">  
-            <app-custom-input
-              type="password"
-              id="new_password"
-              name="new_password"
-              placeholder="New Password"
-              [value]="values().new_password"
-              [maxLength]="255"
-              prefixIcon="password"
-              [errorMessage]="errors().new_password ?? errors().global"
-              (inputEvent)="changeField($event, 'new_password')"
-              (keyboardEvent)="handleEnterSubmit($event)"
-              (clearInputEvent)="clearField('new_password')"
-            ></app-custom-input> 
-          </div> 
-          <div class="relative size-full">  
-            <app-custom-input
-              type="password"
-              id="confirm_password"
-              name="confirm_password"
-              placeholder="Confirm Password"
-              [value]="values().confirm_password"
-              [maxLength]="255"
-              prefixIcon="password"
-              [errorMessage]="errors().confirm_password ?? errors().global"
-              (inputEvent)="changeField($event, 'confirm_password')"
-              (keyboardEvent)="handleEnterSubmit($event)"
-              (clearInputEvent)="clearField('confirm_password')"
-            ></app-custom-input> 
-          </div> 
-          <button [class]="btnClassPrimaryDarkBlue + ' w-[200px] mb-4 mt-2 self-end cursor-pointer'" 
-          [disabled]="isDisabled()" 
-          (click)="handleClickSubmit($event)">
-            Update
-          </button>
-        </div>
+    <div class="w-full flex flex-col">
+      <div class="flex gap-2 items-center mb-3">
+        <div class="font-semibold 2xl:text-lg text-base">Password</div>
       </div>
-    }
-    @if (!query.data() && !query.isPending() && !query.isError()) {
-      <div class="flex justify-center items-center h-[80vh]">
-        <div class="text-2xl font-bold">An error occurred while fetching user data.</div>
+      <div class="relative size-full">
+        <app-custom-input
+          type="password"
+          id="old_password"
+          name="old_password"
+          placeholder="Old Password"
+          [value]="values().old_password"
+          [maxLength]="255"
+          prefixIcon="password"
+          [errorMessage]="errors().old_password ?? errors().global"
+          (inputEvent)="changeField($event, 'old_password')"
+          (keyboardEvent)="handleEnterSubmit($event)"
+          (clearInputEvent)="clearField('old_password')"
+        ></app-custom-input>
       </div>
-    } 
+      <div class="relative size-full">
+        <app-custom-input
+          type="password"
+          id="new_password"
+          name="new_password"
+          placeholder="New Password"
+          [value]="values().new_password"
+          [maxLength]="255"
+          prefixIcon="password"
+          [errorMessage]="errors().new_password ?? errors().global"
+          (inputEvent)="changeField($event, 'new_password')"
+          (keyboardEvent)="handleEnterSubmit($event)"
+          (clearInputEvent)="clearField('new_password')"
+        ></app-custom-input>
+      </div>
+      <div class="relative size-full">
+        <app-custom-input
+          type="password"
+          id="confirm_password"
+          name="confirm_password"
+          placeholder="Confirm Password"
+          [value]="values().confirm_password"
+          [maxLength]="255"
+          prefixIcon="password"
+          [errorMessage]="errors().confirm_password ?? errors().global"
+          (inputEvent)="changeField($event, 'confirm_password')"
+          (keyboardEvent)="handleEnterSubmit($event)"
+          (clearInputEvent)="clearField('confirm_password')"
+        ></app-custom-input>
+      </div>
+      <button
+        [class]="
+          btnClassPrimaryDarkBlue +
+          ' w-[200px] mb-4 mt-2 self-end cursor-pointer'
+        "
+        [disabled]="isDisabled()"
+        (click)="handleClickSubmit($event)"
+      >
+        Update
+      </button>
+    </div>
+  </div>
+  } @if (!query.data() && !query.isPending() && !query.isError()) {
+  <div class="flex justify-center items-center h-[80vh]">
+    <div class="text-2xl font-bold">
+      An error occurred while fetching user data.
+    </div>
+  </div>
+  }
 </div>

@@ -172,7 +172,7 @@ export interface TaskUpdateValues {
   title: string;
   description: string;
   completed: boolean;
-  due_date: Dayjs | null;
+  due_date: string | null;
 }
 export interface TaskUpdateErrors {
   title: string | null;

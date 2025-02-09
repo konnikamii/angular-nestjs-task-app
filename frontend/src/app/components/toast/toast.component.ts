@@ -4,11 +4,11 @@ import { Component, input, OnInit, signal } from '@angular/core';
   selector: 'app-toast',
   imports: [],
   templateUrl: './toast.component.html',
-  styleUrl: './toast.component.scss'
+  styleUrl: './toast.component.scss',
 })
-export class ToastComponent implements OnInit { 
+export class ToastComponent implements OnInit {
   message = input('');
-  type = input<'success' | 'error'| 'loading'>('success');
+  type = input<'success' | 'error' | 'loading'>('success');
   duration = input(3000);
 
   showToast = signal(false);

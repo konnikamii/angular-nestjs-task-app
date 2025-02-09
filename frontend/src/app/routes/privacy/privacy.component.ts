@@ -6,8 +6,6 @@ import { SideLinesComponent } from '../../components/side-lines/side-lines.compo
   selector: 'app-privacy',
   imports: [RouterLink, SideLinesComponent],
   templateUrl: './privacy.component.html',
-  styleUrl: './privacy.component.scss'
+  styleUrl: './privacy.component.scss',
 })
-export class PrivacyComponent {
-
-}
+export class PrivacyComponent {}

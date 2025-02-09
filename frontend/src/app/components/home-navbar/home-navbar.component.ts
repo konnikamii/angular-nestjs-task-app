@@ -1,37 +1,50 @@
-import { Component, Inject, inject, Input, OnInit, Renderer2, signal } from '@angular/core';
-import { RouterLink } from '@angular/router'; 
-import { LogoComponent } from "../../svgs/_nav/logo/logo.component";
+import {
+  Component,
+  Inject,
+  inject,
+  Input,
+  OnInit,
+  Renderer2,
+  signal,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { LogoComponent } from '../../svgs/_nav/logo/logo.component';
 import { ThemeService } from '../../services/theme.service';
 import { DOCUMENT } from '@angular/common';
-import { ThemeToggleLightComponent } from "../../svgs/theme-toggle-light/theme-toggle-light.component";
-import { ThemeToggleDarkComponent } from "../../svgs/theme-toggle-dark/theme-toggle-dark.component";
+import { ThemeToggleLightComponent } from '../../svgs/theme-toggle-light/theme-toggle-light.component';
+import { ThemeToggleDarkComponent } from '../../svgs/theme-toggle-dark/theme-toggle-dark.component';
 
 @Component({
   selector: 'app-home-navbar',
-  imports: [RouterLink, LogoComponent, ThemeToggleLightComponent, ThemeToggleDarkComponent],
+  imports: [
+    RouterLink,
+    LogoComponent,
+    ThemeToggleLightComponent,
+    ThemeToggleDarkComponent,
+  ],
   templateUrl: './home-navbar.component.html',
-  styleUrl: './home-navbar.component.scss'
+  styleUrl: './home-navbar.component.scss',
 })
-export class HomeNavbarComponent implements OnInit { 
+export class HomeNavbarComponent implements OnInit {
   themeService = inject(ThemeService);
   renderer = inject(Renderer2);
-  document = inject(DOCUMENT); 
-  
+  document = inject(DOCUMENT);
+
   theme = signal<'light' | 'dark'>('light');
   isLight = signal(true);
- 
-  ngOnInit() { 
+
+  ngOnInit() {
     this.updateThemeClass(this.themeService.isLight);
-    this.themeService.theme$.subscribe(newTheme => {
+    this.themeService.theme$.subscribe((newTheme) => {
       this.theme.set(newTheme);
-      this.isLight.set(this.themeService.isLight) 
+      this.isLight.set(this.themeService.isLight);
       this.updateThemeClass(this.themeService.isLight);
     });
   }
 
   toggleTheme() {
     const newTheme = this.theme() === 'light' ? 'dark' : 'light';
-    this.themeService.setTheme(newTheme); 
+    this.themeService.setTheme(newTheme);
   }
 
   private updateThemeClass(isLight: boolean) {

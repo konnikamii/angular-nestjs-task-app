@@ -1,0 +1,28 @@
+services:
+  frontend:
+    image: frontend
+    container_name: frontend
+    restart: unless-stopped 
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 4200:4200    
+    volumes:
+      - .:/app
+      - frontend-node-modules:/app/node_modules 
+      - frontend-dist:/app/dist  
+    env_file: 
+     - ./.env  
+    environment:
+     - RUN_ON_DOCKER=on
+     - BACKEND_HOST=backend
+     - NG_APP_BACKEND_HOST=backend
+
+volumes:
+  frontend-node-modules: 
+  frontend-dist: 
+  frontend-typed-router: 
+      
+  

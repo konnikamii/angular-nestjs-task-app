@@ -1,42 +1,56 @@
 <nav
-  class="fixed w-full h-[80px] transition-all duration-300 border-b flex justify-between items-center gap-2 backdrop-blur z-10 text-black bg-gray-300/60 shadow-lg shadow-gray-400/40 border-gray-400/80 dark:text-white dark:bg-black/80 dark:shadow-2xl dark:shadow-gray-700/60 dark:border-gray-600/80 lg:pl-[150px] lg:pr-[40px] pl-[25px] pr-[25px]">
+  class="fixed w-full h-[80px] transition-all duration-300 border-b flex justify-between items-center gap-2 backdrop-blur z-10 text-black bg-gray-300/60 shadow-lg shadow-gray-400/40 border-gray-400/80 dark:text-white dark:bg-black/80 dark:shadow-2xl dark:shadow-gray-700/60 dark:border-gray-600/80 lg:pl-[150px] lg:pr-[40px] pl-[25px] pr-[25px]"
+>
   <a class="flex gap-4 items-center cursor-pointer" href="/">
-    <app-logo className="transition-all duration-300 active:scale-90 2xl:size-12 lg:size-11 size-10" [isLight]="true" /> 
+    <app-logo
+      className="transition-all duration-300 active:scale-90 2xl:size-12 lg:size-11 size-10"
+      [isLight]="true"
+    />
     <div
       class="font-bold transition-all duration-300 text-black dark:text-white 2xl:text-3xl lg:text-2xl text-xl 2xs:block hidden"
-      style="font-family: 'Inter'">
+      style="font-family: 'Inter'"
+    >
       Taskify
     </div>
   </a>
-  
+
   <div class="flex items-center gap-6">
     <div
       class="w-12 h-6 px-[6px] py-[3px] bg-gray-400 shadow-inner shadow-gray-700 border border-gray-400 rounded-full cursor-pointer relative"
-      (click)="toggleTheme()">
+      (click)="toggleTheme()"
+    >
       <app-theme-toggle-light
-        className="absolute left-1 size-4 bg-white fill-yellow-500 rounded-full transition-all duration-300 opacity-100 rotate-[-360deg] translate-x-0 dark:translate-x-6 dark:opacity-0 dark:rotate-0" />
+        className="absolute left-1 size-4 bg-white fill-yellow-500 rounded-full transition-all duration-300 opacity-100 rotate-[-360deg] translate-x-0 dark:translate-x-6 dark:opacity-0 dark:rotate-0"
+      />
       <app-theme-toggle-dark
-        className="absolute left-1 size-4 bg-white fill-black rounded-full transition-all duration-300 opacity-0 rotate-[-360deg] translate-x-0 dark:translate-x-6 dark:opacity-100 dark:rotate-0" />
+        className="absolute left-1 size-4 bg-white fill-black rounded-full transition-all duration-300 opacity-0 rotate-[-360deg] translate-x-0 dark:translate-x-6 dark:opacity-100 dark:rotate-0"
+      />
     </div>
 
     <div class="group-fast">
-      <div routerLink="/contact"
+      <div
+        routerLink="/contact"
         class="relative underline-animation font-medium text-lg hover:text-blue-500 transition duration-300 cursor-pointer"
-        draggable="false">
+        draggable="false"
+      >
         Contact Us
       </div>
     </div>
     <div class="group-fast">
-      <div routerLink="/login"
+      <div
+        routerLink="/login"
         class="relative underline-animation font-medium text-lg hover:text-blue-500 transition duration-300 cursor-pointer"
-        draggable="false">
+        draggable="false"
+      >
         Login
+      </div>
     </div>
-    </div>
-    <div routerLink="/register"
+    <div
+      routerLink="/register"
       class="popup-button bg-gradient-to-r from-[#6ccf54] via-[#1c8ecf] to-[#322fff] from-[10%] to-[90%] text-white font-bold text-center uppercase rounded-lg py-[10px] px-6 shadow-lg cursor-pointer hover:scale-[102%]"
-      draggable="false">
+      draggable="false"
+    >
       Sign Up
+    </div>
   </div>
-  </div> 
 </nav>

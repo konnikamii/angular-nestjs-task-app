@@ -1,0 +1,96 @@
+name: ${APP_NAME}
+services: 
+  backend:
+    image: ${APP_NAME}/backend:latest
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mailhog: 
+        condition: service_started
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 8000:8000
+    env_file:
+      - ./backend/.env
+    environment:  
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=nestJSTest
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=qwerty123  
+      - DATABASE_URL=postgresql://postgres:qwerty123@postgres:5432/nestJSTest?schema=public
+      - MAIL_HOST=mailhog   
+    volumes:
+      - ./backend:/app
+      - backend-node-modules:/app/node_modules  
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres
+    container_name: postgres 
+    restart: unless-stopped  
+    environment:
+      - POSTGRES_DB=nestJSTest
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=qwerty123 
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-db:/var/lib/postgresql/data  
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d nestJSTest"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    restart: unless-stopped
+    ports:
+      - 8025:8025
+      - 1025:1025
+    networks:
+      - app-network
+
+  frontend:
+    image: ${APP_NAME}/frontend:latest
+    container_name: frontend
+    restart: unless-stopped 
+    tty: true
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 4200:4200    
+    volumes:
+      - ./frontend:/app
+      - frontend-node-modules:/app/node_modules 
+      - frontend-dist:/app/dist  
+    env_file: 
+     - ./frontend/.env  
+    environment:
+     - RUN_ON_DOCKER=on
+     - BACKEND_HOST=localhost
+     - NG_APP_BACKEND_HOST=localhost
+    networks:
+      - app-network
+ 
+volumes:
+  postgres-db: 
+  backend-node-modules: 
+  frontend-node-modules: 
+  frontend-dist: 
+  frontend-typed-router: 
+     
+networks:
+  app-network:
+    driver: bridge
